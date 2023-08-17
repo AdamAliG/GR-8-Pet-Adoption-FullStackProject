@@ -12,39 +12,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $pets = [
             "dog" => [
-                "living_situation" => ["house"],
-                "dedicated_time" => ["lots"],
-                "active_level" => ["very_active", "moderately_active"],
-                "other_pets" => ["yes", "no"],
-                "maintenance" => ["enjoy_grooming"]
+                "question1" => ["house"],
+                "question2" => ["lots"],
+                "question3" => ["very_active", "moderately_active"],
+                "question4" => ["yes", "no"],
+                "question5" => ["enjoy_grooming"]
             ],
             "cat" => [
-                "living_situation" => ["apartment", "house"],
-                "dedicated_time" => ["lots", "moderate"],
-                "active_level" => ["moderately_active", "not_very_active"],
-                "other_pets" => ["yes", "no"],
-                "maintenance" => ["enjoy_grooming", "okay_with_grooming"]
+                "question1" => ["apartment", "house"],
+                "question2" => ["lots", "moderate"],
+                "question3" => ["moderately_active", "not_very_active"],
+                "question4" => ["yes", "no"],
+                "question5" => ["enjoy_grooming", "okay_with_grooming"]
             ],
             "bird" => [
-                "living_situation" => ["house", "apartment"],
-                "dedicated_time" => ["lots", "moderate", "little"],
-                "active_level" => ["not_very_active"],
-                "other_pets" => ["no"],
-                "maintenance" => ["okay_with_grooming", "prefer_low_maintenance"]
+                "question1" => ["house", "apartment"],
+                "question2" => ["lots", "moderate", "little"],
+                "question3" => ["not_very_active"],
+                "question4" => ["no"],
+                "question5" => ["okay_with_grooming", "prefer_low_maintenance"]
             ],
             "hamster" => [
-                "living_situation" => ["house", "apartment"],
-                "dedicated_time" => ["moderate", "little"],e ma
-                "active_level" => ["not_very_active"],
-                "other_pets" => ["yes"],
-                "maintenance" => ["prefer_low_maintenance"]
+                "question1" => ["house", "apartment"],
+                "question2" => ["moderate", "little"],
+                "question3" => ["not_very_active"],
+                "question4" => ["yes"],
+                "question5" => ["prefer_low_maintenance"]
             ],
             "fish" => [
-                "living_situation" => ["house", "apartment"],
-                "dedicated_time" => ["little"],
-                "active_level" => ["not_very_active"],
-                "other_pets" => ["yes", "no"],
-                "maintenance" => ["prefer_low_maintenance"]
+                "question1" => ["house", "apartment"],
+                "question2" => ["little"],
+                "question3" => ["not_very_active"],
+                "question4" => ["yes", "no"],
+                "question5" => ["prefer_low_maintenance"]
             ],
         ];
 

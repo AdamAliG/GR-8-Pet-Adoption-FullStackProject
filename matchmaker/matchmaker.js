@@ -10,6 +10,8 @@ function submitQuiz() {
     question5: document.querySelector('input[name="question5"]:checked').value,
   };
 
+  console.log("Quiz Answers:", quizAnswers);
+
   fetch("match_pets.php", {
     method: "POST",
     body: JSON.stringify({ quizAnswers }), // Wrap quizAnswers in an object
