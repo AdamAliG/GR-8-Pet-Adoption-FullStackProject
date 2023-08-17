@@ -8,7 +8,7 @@ require_once 'public/components/db_connect.php';
 require_once "public/functions.php";
 
 session_start();
-//$_SESSION['user']=3;
+// $_SESSION['user']= 3;
 if (!isset($_SESSION['user'])) {
     header( "Location: login.php" );
 } 
