@@ -5,8 +5,8 @@ it show all adoption requets from users with their status.
 in this page you can filter requests depend on status
 */
 session_start();
-$_SESSION['adm']= 4;
-if (!isset($_SESSION['adm'])) {
+// $_SESSION['admin']= 4;
+if (!isset($_SESSION['admin'])) {
     header( "Location: login.php" );
 } 
 require_once 'public/components/db_connect.php';

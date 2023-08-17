@@ -6,8 +6,8 @@ in this page can see and change the status of the request
 */
 
 session_start();
-$_SESSION['adm']= 4;
-if (!isset($_SESSION['adm'])) {
+// $_SESSION['adm']= 4;
+if (!isset($_SESSION['admin'])) {
     header( "Location: login.php" );
 } 
     
@@ -117,9 +117,18 @@ if (!isset($_SESSION['adm'])) {
 
         } else if ($new_status == 'rejected') {
 
+
+
             if ($current_status=='approved') {
-                $sql2="UPDATE adoption_applications SET status='pending' and pet_id=$pet_id, status_date=Now() and user_id != $user_id_req";
-                $sql3 ="UPDATE pets SET `status`='not adopted' WHERE id =".$pet_id;
+                
+                $sql22= "select * from adoption_applications where status='rejected' and pet_id=$pet_id and user_id!=$user_id_req";
+                $rows2=retreive_form_database($connect,$sql22);
+                if ($rows2) {
+                    $sql3 ="UPDATE pets SET `status`='pending' WHERE id =".$pet_id;
+                    $sql2="UPDATE adoption_applications SET status='pending',status_date=Now() where pet_id=$pet_id and user_id != $user_id_req";
+                } else {
+                    $sql3 ="UPDATE pets SET `status`='not adopted' WHERE id =".$pet_id;
+                }
             }
 
             if ($current_status=='pending') {
@@ -131,11 +140,21 @@ if (!isset($_SESSION['adm'])) {
             }
             
             if (isset($sql3) && isset($sql2)) {
-
+               
                 if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3)) {
 
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status.Now the Pet is free for adoption requests.
+                    </div>";
+                    //header("refresh : 3 , url = index_requests.php");
+                }
+
+            } else if (isset($sql3)) {
+
+                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql3)) {
+
+                    $layout .= "<div class='alert alert-success' role='alert'>
+                    You have changed the Request Status.Now the Pet status is not adopted.
                     </div>";
                     //header("refresh : 3 , url = index_requests.php");
                 }
@@ -165,9 +184,9 @@ if (!isset($_SESSION['adm'])) {
         } else if ($new_status == 'pending') {
 
             $sql2 ="UPDATE pets SET `status`='pending' WHERE id =".$pet_id;
-
+        
             if ($current_status=='approved') {
-                $sql3="UPDATE adoption_applications SET status='pending', status_date=Now() and pet_id=$pet_id and user_id != $user_id_req";
+                $sql3="UPDATE adoption_applications SET status='pending', status_date=Now() where pet_id=$pet_id and user_id != $user_id_req";
             }
 
             if ($current_status=='rejected') {

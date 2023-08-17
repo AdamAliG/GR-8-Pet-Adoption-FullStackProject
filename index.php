@@ -4,14 +4,16 @@ This page is a user page, it needs sign in ($_SESSION['user'])
 it show all adoption cases.
 it has detail, and adoption request for each case
 */
-require_once 'public/components/db_connect.php';
-require_once "public/functions.php";
+
 
 session_start();
 // $_SESSION['user']= 3;
 if (!isset($_SESSION['user'])) {
     header( "Location: login.php" );
 } 
+
+require_once 'public/components/db_connect.php';
+require_once "public/functions.php";
 
 $sql1 = "SELECT * FROM pets";
 $result = mysqli_query($connect ,$sql1);
