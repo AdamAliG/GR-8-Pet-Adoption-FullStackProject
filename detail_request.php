@@ -6,7 +6,7 @@ in this page can see and change the status of the request
 */
 
 session_start();
-// $_SESSION['adm']= 4;
+$_SESSION['adm']= 4;
 if (!isset($_SESSION['adm'])) {
     header( "Location: login.php" );
 } 
@@ -24,25 +24,7 @@ if (!isset($_SESSION['adm'])) {
     if (isset($_GET['status'])) {
 
         $status_g = $_GET['status'];
-
-        switch ($status_g) {
-            case 'approved':
-                $color = "primary";
-                break;
-            case 'rejected':
-                $color = "danger";
-                break;
-            case 'pending':
-                $color = "warning";
-                break;
-            default:
-                $color = "dark";
-                break;
-        }
-
-        $layout .= "<h2 class='text-{$color} text-center fw-bold'>".ucwords($status_g)."!</h2>";
-
-    } 
+    }
 
     if (isset($_GET['new_status'])) {
 
@@ -112,40 +94,60 @@ if (!isset($_SESSION['adm'])) {
 
     if (!empty($new_status))  {
 
-        
+        $sql0= "select status from adoption_applications where pet_id=$pet_id and user_id=$user_id_req";
+        $rows0=retreive_form_database($connect,$sql0);
+        $current_status = $rows0['status'];
+        $status_g = $new_status;
 
         $sql1 = "UPDATE adoption_applications set status='$new_status', status_date=Now() where pet_id=$pet_id and user_id=$user_id_req"; 
         
         if ($new_status == 'approved') {
 
             $sql2 ="UPDATE pets SET `status`='adopted' WHERE id =".$pet_id;
-            $sql3= "UPDATE adoption_applications set status='rejected' where pet_id=$pet_id and user_id != $user_id_req";
+            $sql3= "UPDATE adoption_applications set status='rejected', status_date=Now() where pet_id=$pet_id and user_id != $user_id_req";
 
             if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3) ) {
 
                 $layout .= "<div class='alert alert-success' role='alert'>
                 You have changed the Request Status!
                 </div>";
-                header("refresh : 3 , url = index_requests.php");
+                //header("refresh : 3 , url = index_requests.php");
             }
 
 
         } else if ($new_status == 'rejected') {
 
-            $sql="select id from adoption_applications where status!='rejected' and pet_id=$pet_id and user_id != $user_id_req";
-            $row=retreive_form_database($connect ,$sql);
-            if (!$row2) {
-                $sql2 ="UPDATE pets SET `status`='not adopted' WHERE id =".$pet_id;
+            if ($current_status=='approved') {
+                $sql2="UPDATE adoption_applications SET status='pending' and pet_id=$pet_id, status_date=Now() and user_id != $user_id_req";
+                $sql3 ="UPDATE pets SET `status`='not adopted' WHERE id =".$pet_id;
             }
 
-            if (isset($sql2)) {
+            if ($current_status=='pending') {
+                $sql2= "select id from adoption_applications where status='pending' and pet_id=$pet_id and user_id!=$user_id_req";
+                $rows2=retreive_form_database($connect,$sql2);
+                if (!$rows2) {
+                    $sql22 ="UPDATE pets SET `status`='not adopted' WHERE id =".$pet_id;
+                }
+            }
+            
+            if (isset($sql3) && isset($sql2)) {
 
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2)) {
+                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3)) {
 
                     $layout .= "<div class='alert alert-success' role='alert'>
-                    You have changed the Request Status!
+                    You have changed the Request Status.Now the Pet is free for adoption requests.
                     </div>";
-                    header("refresh : 3 , url = index_requests.php");
+                    //header("refresh : 3 , url = index_requests.php");
+                }
+
+            } else if (isset($sql22)) {
+
+                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql22)) {
+
+                    $layout .= "<div class='alert alert-success' role='alert'>
+                    You have changed the Request Status.Now the Pet status is not adopted.
+                    </div>";
+                    //header("refresh : 3 , url = index_requests.php");
                 }
 
             } else {
@@ -155,26 +157,71 @@ if (!isset($_SESSION['adm'])) {
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status!
                     </div>";
-                    header("refresh : 3 , url = index_requests.php");
+                    //header("refresh : 3 , url = index_requests.php");
                 }
 
             }
             
-        } else {
+        } else if ($new_status == 'pending') {
+
             $sql2 ="UPDATE pets SET `status`='pending' WHERE id =".$pet_id;
 
-            if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2)) {
-
-                $layout .= "<div class='alert alert-success' role='alert'>
-                You have changed the Request Status!
-                </div>";
-                header("refresh : 3 , url = index.php");
+            if ($current_status=='approved') {
+                $sql3="UPDATE adoption_applications SET status='pending', status_date=Now() and pet_id=$pet_id and user_id != $user_id_req";
             }
+
+            if ($current_status=='rejected') {
+                $sql4= "select id from adoption_applications where status='approved' and pet_id=$pet_id and user_id!=$user_id_req";
+                $rows4=retreive_form_database($connect,$sql4);
+                if (!$rows4) {
+                    $sql44 ="UPDATE pets SET `status`='pending' WHERE id =".$pet_id;
+                }
+            }
+
+            if (isset($sql3)) {
+                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3)) {
+                    $layout .= "<div class='alert alert-success' role='alert'>
+                    You have changed the Request Status!.Now the Pet is free for adoption requests!
+                    </div>";
+                    // header("refresh : 3 , url = index.php");
+                }
+            } else if (isset($sql44)) {
+                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql44)) {
+                    $layout .= "<div class='alert alert-success' role='alert'>
+                    You have changed the Request Status.
+                    </div>";
+                    // header("refresh : 3 , url = index.php");
+                }
+
+            }  else {
+                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2)) {
+                    $layout .= "<div class='alert alert-success' role='alert'>
+                    You have changed the Request Status!
+                    </div>";
+                    // header("refresh : 3 , url = index.php");
+                }
+
+            }
+
         }
+
   
     }
-
-
+    switch ($status_g) {
+        case 'approved':
+            $color = "primary";
+            break;
+        case 'rejected':
+            $color = "danger";
+            break;
+        case 'pending':
+            $color = "warning";
+            break;
+        default:
+            $color = "dark";
+            break;
+    }
+    $layout .= "<h2 class='text-{$color} text-center fw-bold'>".ucwords($status_g)."!</h2>";
 
     $error = false;
     $flag = true;  

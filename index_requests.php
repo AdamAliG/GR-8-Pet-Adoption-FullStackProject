@@ -5,7 +5,7 @@ it show all adoption requets from users with their status.
 in this page you can filter requests depend on status
 */
 session_start();
-// $_SESSION['adm']= 4;
+$_SESSION['adm']= 4;
 if (!isset($_SESSION['adm'])) {
     header( "Location: login.php" );
 } 
@@ -45,16 +45,26 @@ $layer.="<div class='d-flex justify-content-center'><div class='grid-container'>
 if(mysqli_num_rows($result) > 0){
 
     while($rows = mysqli_fetch_assoc($result)){
+
         $layer.="
-            <div class='card' style='width: 20rem;'>
+            <div class='card' style='width: 22rem;'>
             <img src='public/images/pet_images/{$rows['pimage']}' class='card-img-top' alt='...'>
             <div class='card-body'>
             <h5 class='card-title'>{$rows['name']}</h5>
             <p class='card-text'>
             Request From : {$rows['username']}
             <br>
-            Request Status : <b>{$rows['status_req']}</b>
-            <br>
+            Request Status : <b>{$rows['status_req']}</b>";
+            if ($rows['status_req']=='rejected') {
+                $sql2="SELECT username,id from users where id = (select user_id from adoption_applications where status='approved' and  pet_id={$rows['pet_id']} ) ";
+                // echo $sql2;
+                // exit();
+                $rows2=retreive_form_database($connect ,$sql2);
+                if ($rows2) { 
+                    $layer.="(adopted by: {$rows2['username']})";   
+                }
+            }
+        $layer.="<br>
             Species : {$rows['species']}
             <br>
             Breed : {$rows['breed']}
