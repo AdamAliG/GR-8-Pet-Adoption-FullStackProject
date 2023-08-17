@@ -1,0 +1,142 @@
+<style>
+    .navbar {
+        background-color: #f9f6f2 !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .navbar-brand span {
+        color: #000;
+    }
+
+    .form-label {
+        font-size: 0.875rem;
+    }
+
+    .form-select {
+        font-size: 0.875rem;
+    }
+
+    .btn-sm {
+        font-size: 0.75rem;
+    }
+
+    .form-control,
+    .input-group-sm .form-control {
+        font-size: 0.875rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 200px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-top: 10px;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .btn-info {
+        background-color: #ffa500;
+        border: none;
+    }
+
+    .btn-info:hover {
+        background-color: #ff8c00;
+        color: #fff;
+    }
+
+    body {
+        background-color: #f9f6f2;
+    }
+
+    .navbar {
+        background-color: #f9f6f2;
+    }
+
+    .navbar-brand {
+        color: #000;
+    }
+
+    .btn-primary,
+    .btn-warning,
+    .btn-apply { 
+        transition: background-color 0.2s ease;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover,
+    .btn-warning:hover,
+    .btn-apply:hover { 
+        background-color: #ff8c00;
+    }
+
+    .accordion-button {
+        background-color: #ffcc66;
+        color: #000;
+        border-color: #ffcc66;
+        padding: 0.75rem 1.25rem;
+        position: relative;
+    }
+
+    .accordion-button.collapsed {
+        background-color: #ffcc66;
+        color: #000;
+    }
+
+    .accordion-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffcc66;
+        z-index: -1;
+    }
+
+    .accordion-body {
+        background-color: #ffcc66;
+    }
+
+    .btn-apply {
+        background-color: #ffcc66 !important;
+        font-weight: bold;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-apply:hover {
+        background-color: #ffcc66 !important;
+    }
+
+    .input-group-sm .form-control:focus {
+        border-color: #ffcc66 !important;
+        box-shadow: 0 0 0 2px rgba(255, 204, 102, 0.3);
+    }
+</style>

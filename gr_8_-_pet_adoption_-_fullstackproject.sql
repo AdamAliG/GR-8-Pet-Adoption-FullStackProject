@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Aug 2023 um 12:17
+-- Erstellungszeit: 17. Aug 2023 um 11:28
 -- Server-Version: 10.4.28-MariaDB
 -- PHP-Version: 8.0.28
 
@@ -88,10 +88,15 @@ CREATE TABLE `messages` (
 CREATE TABLE `pets` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `species` enum('dog','cat','bird','other') DEFAULT NULL,
+  `species` enum('dog','cat','bird','hamster','fish') DEFAULT NULL,
   `description` text DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
-  `added_by` int(11) DEFAULT NULL
+  `added_by` int(11) DEFAULT NULL,
+  `breed` varchar(100) DEFAULT 'No Breed',
+  `status` enum('not adopted','adopted','pending') DEFAULT 'not adopted',
+  `age` int(11) NOT NULL,
+  `image` varchar(150) DEFAULT 'default.jpg',
+  `size` enum('small','medium','big') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -133,8 +138,17 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `registration_date` date DEFAULT curdate(),
-  `role` enum('admin','user','shelter') NOT NULL
+  `pictures` varchar(255) DEFAULT NULL,
+  `role` enum('user','admin') DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `registration_date`, `pictures`, `role`) VALUES
+(7, 'Adam', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'electron.adam@proton.me', '2023-08-14', '64da39f6ae2af.png', 'admin'),
+(8, 'Ada', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'milegy@proton.me', '2023-08-14', '64dde75de1c62.png', 'user');
 
 --
 -- Indizes der exportierten Tabellen
@@ -232,7 +246,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT für Tabelle `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT für Tabelle `pet_matchmaker`
@@ -250,7 +264,7 @@ ALTER TABLE `resource_library`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints der exportierten Tabellen
