@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Matchmaker</title>
+</head>
+<body>
+  <div id="quiz">
+    <h2>Compatibility Quiz</h2>
+    <div class="question">
+      <p>Question 1: What is your living situation?</p>
+      <label>
+        <input type="radio" name="question1" value="apartment"> Apartment
+      </label>
+      <label>
+        <input type="radio" name="question1" value="house"> House
+      </label>
+    </div>
+    <div class="question">
+      <p>Question 2: How much time can you dedicate to a pet?</p>
+      <label>
+        <input type="radio" name="question2" value="lots"> Lots of time
+      </label>
+      <label>
+        <input type="radio" name="question2" value="moderate"> Moderate time
+      </label>
+      <label>
+        <input type="radio" name="question2" value="little"> Little time
+      </label>
+    </div>
+   
+    <div class="question">
+      <p>Question 3: How active are you?</p>
+      <label>
+        <input type="radio" name="question3" value="very_active"> Very active
+      </label>
+      <label>
+        <input type="radio" name="question3" value="moderately_active"> Moderately active
+      </label>
+      <label>
+        <input type="radio" name="question3" value="not_very_active"> Not very active
+      </label>
+    </div>
+    
+    <div class="question">
+      <p>Question 4: Do you have any other pets at home?</p>
+      <label>
+        <input type="radio" name="question4" value="yes"> Yes
+      </label>
+      <label>
+        <input type="radio" name="question4" value="no"> No
+      </label>
+    </div>
+    
+    <div class="question">
+      <p>Question 5: How do you feel about grooming and maintenance?</p>
+      <label>
+        <input type="radio" name="question5" value="enjoy_grooming"> I enjoy grooming and maintenance
+      </label>
+      <label>
+        <input type="radio" name="question5" value="okay_with_grooming"> I'm okay with grooming
+      </label>
+      <label>
+        <input type="radio" name="question5" value="prefer_low_maintenance"> I prefer low maintenance pets
+      </label>
+    </div>
+    
+  
+    
+
+    
+    <button id="submit-quiz">Submit</button>
+  </div>
+  
+  <div id="matches">
+    <h2>Matched Pets</h2>
+    <ul id="matched-pets-list">
+      <!-- Display matched pets here -->
+    </ul>
+  </div>
+
+  <script src="matchmaker.js"></script>
+</body>
+</html>

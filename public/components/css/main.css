@@ -1,0 +1,45 @@
+*. {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.box {
+    background:red;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+  }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+    padding: 0px;
+  }
+
+.grid-container-2 {
+    display: grid;
+    grid-template-columns: auto 600px;
+    grid-gap: 10px;
+    padding: 0px;
+  }
+
+.grid-container-3 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    padding: 0px;
+  }
+
+.detail_pic {
+ width: 500px;
+}
+
+.form-label {
+  color: rgb(58, 27, 136);
+  font-weight: bold;
+}
+  
