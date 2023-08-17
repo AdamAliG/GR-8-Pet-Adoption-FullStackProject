@@ -38,9 +38,9 @@
         }elseif(strlen($username) < 3){
             $error = true;
             $usernameError = "Name must have at least 3 characters.";
-        }elseif(!preg_match("/^[a-zA-Z\s]+$/", $username)){
+        }elseif(!preg_match("/^[a-zA-Z0-9\s]+$/", $username)){
             $error = true;
-            $usernameError = "Name must contain only letters and spaces.";
+            $usernameError = "Name must contain only letters,digits and spaces.";
         }
    
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ 

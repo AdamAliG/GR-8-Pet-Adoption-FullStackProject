@@ -8,7 +8,7 @@ in this page can see and change the status of the request
 session_start();
 // $_SESSION['adm']= 4;
 if (!isset($_SESSION['admin'])) {
-    header( "Location: login.php" );
+    header( "Location: user_crud/login.php" );
 } 
     
 

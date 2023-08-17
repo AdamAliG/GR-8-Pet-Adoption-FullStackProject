@@ -3,9 +3,6 @@
 
         if($pictures["error"] == 4){ 
             $pictureName = "avatar.png";
-
-         
-
             $message = "No picture has been chosen, but you can upload an image later :)";
         }else{
             $checkIfImage = getimagesize($pictures["tmp_name"]); 
