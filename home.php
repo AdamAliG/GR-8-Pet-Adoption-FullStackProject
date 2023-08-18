@@ -94,6 +94,9 @@ $cards = "";
                 <li class="nav-item">
                     <a class="nav-link" href="#">Calendar for Volunteers</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
+                </li>
             </ul>
             
             <ul class="navbar-nav ms-auto">
