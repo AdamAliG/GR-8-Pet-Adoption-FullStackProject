@@ -16,6 +16,12 @@ if (!isset($_SESSION['admin'])) {
     require_once "file_Upload.php"; 
     require_once "public/functions.php";
 
+    $pet_id = 0;
+    $user_id_req=0;
+    $new_status="";
+    $layout = "";
+    $fost=false;
+
     if(isset($_POST['fost'])) {
         $pet_id = $_POST['pet_id'];
         $user_id_req = $_POST['user_id_req'];
@@ -23,7 +29,9 @@ if (!isset($_SESSION['admin'])) {
         $end_date = $_POST['end_date'];
         $description = $_POST['description'];
 
-        $sqlfost = "INSERT INTO `foster_to_adopt` (`user_id`, `pet_id`, 'status','start_date','end_date','description') VALUES ($user_id_req,$pet_id,'in_progress','$start_date','$end_date','$description')";
+        $sqlfost = "INSERT INTO `foster_to_adopt`(`user_id`, `pet_id`, `status`, `start_date`, `end_date`, `description`) VALUES ($user_id_req,$pet_id,'in_progress','$start_date','$end_date','$description')";
+
+
 
         if (mysqli_query($connection,$sqlfost)) {
 
@@ -35,11 +43,6 @@ if (!isset($_SESSION['admin'])) {
 
     }
     
-
-    $pet_id = 0;
-    $user_id_req=0;
-    $new_status="";
-    $layout = "";
 
     if (isset($_GET['status'])) {
 
@@ -110,6 +113,18 @@ if (!isset($_SESSION['admin'])) {
         $reg_date = $row['registration_date'];
         $picture_user = $row['pictures'];
         $user_id_req =$row['id'];
+    }
+
+    $sql = "select * from foster_to_adopt where status='in_progress' and pet_id =". $pet_id . " and user_id=".$user_id_req ;
+
+    $row = retreive_form_database($connection ,$sql);
+
+    if ($row) {
+        $fost=true;
+        $start_date = $row['start_date'];
+        $end_date = $row['end_date'];
+        $description_fost =$row['description'];
+        $layout .= "<h3 class='text-black text-center fw-bold'>in Foster-To-Adopt progress!</h3>";
     }
 
     if (!empty($new_status))  {
@@ -348,6 +363,7 @@ if (!isset($_SESSION['admin'])) {
             </div>
 
             <div class="border border-primary p-2">
+            <?php if (!$fost)  { ?>
             <h3 class="text-danger">Foster-to-Adopt Form</h3>
             <form method="post">
                 Pet : <?=$name ?><input type="hidden" name="pet_id" value=<?=$pet_id ?>><br>
@@ -358,6 +374,17 @@ if (!isset($_SESSION['admin'])) {
                 <br><br>
                 <button type="submit" name="fost" value="fost" class="btn btn-large btn-warning">Foster for <?=$username ?></button>
             </form>
+            <?php } else { ?>
+            <h3 class="text-danger">Foster-to-Adopt In Progress</h3>
+            <form method="post">
+                Pet : <?=$name ?><input type="hidden" name="pet_id" value=<?=$pet_id ?>><br>
+                User : <?=$username ?><input type="hidden" name="user_id_req" value=<?=$user_id_req ?>><br><br>
+                Start Date : <?=$start_date ?><br>
+                End Date : <?=$end_date ?><br>
+                Description : <?=$description_fost ?>
+                <br><br>
+            </form>
+            <?php } ?>
             </div>
     </div>
     </div>
