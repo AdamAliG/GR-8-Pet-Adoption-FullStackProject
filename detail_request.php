@@ -23,7 +23,15 @@ if (!isset($_SESSION['admin'])) {
         $end_date = $_POST['end_date'];
         $description = $_POST['description'];
 
-        $sqlfost = "INSERT INTO `adoption_applications`(`user_id`, `pet_id`, 'status','','',) VALUES ($user_id,$pet_id,NOW())";
+        $sqlfost = "INSERT INTO `foster_to_adopt` (`user_id`, `pet_id`, 'status','start_date','end_date','description') VALUES ($user_id_req,$pet_id,'in_progress','$start_date','$end_date','$description')";
+
+        if (mysqli_query($connection,$sqlfost)) {
+
+            $layout .= "<div class='alert alert-success' role='alert'>
+            Fost has beeb done!
+            </div>";
+
+        }
 
     }
     
@@ -338,6 +346,7 @@ if (!isset($_SESSION['admin'])) {
             <div class="mb-3 w-90">
                 <label for="breed" class="form-label">Registration Date: </label><br><?=$reg_date ?>
             </div>
+
             <div class="border border-primary p-2">
             <h3 class="text-danger">Foster-to-Adopt Form</h3>
             <form method="post">
