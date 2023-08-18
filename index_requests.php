@@ -5,12 +5,13 @@ it show all adoption requets from users with their status.
 in this page you can filter requests depend on status
 */
 session_start();
-// $_SESSION['admin']= 4;
+// $_SESSION['admin']= 9;
 if (!isset($_SESSION['admin'])) {
     header( "Location: login.php" );
 } 
-require_once 'public/components/db_connect.php';
+require_once 'db_connect.php';
 require_once "public/functions.php";
+
 
 if (isset($_GET['status'])) {
     $status = $_GET['status'];
@@ -18,7 +19,7 @@ if (isset($_GET['status'])) {
     $status = "NO-Status";
 }
 if ($status!='NO-Status') {
-    $sql = "SELECT *,pets.image as pimage,users.image as uimage,adoption_applications.status as status_req
+    $sql = "SELECT *,pets.image as pimage,users.pictures as uimage,adoption_applications.status as status_req
             FROM adoption_applications 
             inner join users on (user_id = users.id)
             inner join pets on (pet_id = pets.id)
@@ -27,7 +28,7 @@ if ($status!='NO-Status') {
             group BY
             adoption_applications.pet_id , adoption_applications.user_id ";
 } else {
-    $sql = "SELECT *,pets.image as pimage,users.image as uimage,adoption_applications.status as status_req
+    $sql = "SELECT *,pets.image as pimage,users.pictures as uimage,adoption_applications.status as status_req
             FROM adoption_applications 
             inner join users on (user_id = users.id)
             inner join pets on (pet_id = pets.id)
@@ -38,46 +39,56 @@ if ($status!='NO-Status') {
 
 
 
-$result = mysqli_query($connect ,$sql);
-$layer="";
-$layer.="<div class='d-flex justify-content-center'><div class='grid-container'>";
 
-if(mysqli_num_rows($result) > 0){
+if (isset($sql)) {
 
-    while($rows = mysqli_fetch_assoc($result)){
+    $result = mysqli_query($connection ,$sql);
+    $layer="";
+    $layer.="<div class='d-flex justify-content-center'><div class='grid-container'>";
 
-        $layer.="
-            <div class='card' style='width: 22rem;'>
-            <img src='public/images/pet_images/{$rows['pimage']}' class='card-img-top' alt='...'>
-            <div class='card-body'>
-            <h5 class='card-title'>{$rows['name']}</h5>
-            <p class='card-text'>
-            Request From : {$rows['username']}
-            <br>
-            Request Status : <b>{$rows['status_req']}</b>";
-            if ($rows['status_req']=='rejected') {
-                $sql2="SELECT username,id from users where id = (select user_id from adoption_applications where status='approved' and  pet_id={$rows['pet_id']} ) ";
-                // echo $sql2;
-                // exit();
-                $rows2=retreive_form_database($connect ,$sql2);
-                if ($rows2) { 
-                    $layer.="(adopted by: {$rows2['username']})";   
+    if(mysqli_num_rows($result) > 0){
+
+        while($rows = mysqli_fetch_assoc($result)){
+
+            $layer.="
+                <div class='card' style='width: 22rem;'>
+                <img src='public/images/pet_images/{$rows['pimage']}' class='card-img-top' alt='...'>
+                <div class='card-body'>
+                <h5 class='card-title'>{$rows['name']}</h5>
+                <p class='card-text'>
+                Request From : {$rows['username']}
+                <br>
+                Request Status : <b>{$rows['status_req']}</b>";
+                if ($rows['status_req']=='rejected') {
+                    $sql2="SELECT username,id from users where id = (select user_id from adoption_applications where status='approved' and  pet_id={$rows['pet_id']} ) ";
+                    // echo $sql2;
+                    // exit();
+                    $rows2=retreive_form_database($connection ,$sql2);
+                    if ($rows2) { 
+                        $layer.="(adopted by: {$rows2['username']})";   
+                    }
                 }
-            }
-        $layer.="<br>
-            Species : {$rows['species']}
-            <br>
-            Breed : {$rows['breed']}
-            <br>
-            age : {$rows['age']}
-            </p>
-            <a href='detail_request.php?detail={$rows['pet_id']}&user_id_req={$rows['user_id']}&status={$rows['status_req']}' class='btn btn-primary'>Request Details</a>
-            </div>
-            </div>";
+            $layer.="<br>
+                Species : {$rows['species']}
+                <br>
+                Breed : {$rows['breed']}
+                <br>
+                age : {$rows['age']}
+                </p>
+                <a href='detail_request.php?detail={$rows['pet_id']}&user_id_req={$rows['user_id']}&status={$rows['status_req']}' class='btn btn-primary'>Request Details</a>
+                </div>
+                </div>";
+        }
     }
+    else {
+        $layer.="<div class='text-danger'>No Records Yet!!</div>";
+    }
+
+    $layer.="</div></div>";
+
 }
 
-$layer.="</div></div>";
+
 
 ?>
 <!DOCTYPE html>

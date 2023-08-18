@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
     $location = $_POST['location'];
     $breed = $_POST['breed'];
     $age = $_POST['age'];
-    $image = fileUpload($_FILES["image"]);
+    $image = fileUpload($_FILES["image"],'pet');
     $size = $_POST['size'];
     $status = $_POST['status'];
     $addey_by = $_SESSION["admin"];

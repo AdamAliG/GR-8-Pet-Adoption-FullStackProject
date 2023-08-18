@@ -29,7 +29,7 @@
         $username = cleanInputs($_POST["username"]); 
         $email = cleanInputs($_POST["email"]);
         $password = cleanInputs($_POST["password"]);
-        $pictures = fileUpload($_FILES["pictures"]);
+        $pictures = fileUpload($_FILES["pictures"],'user');
 
         
         if(empty($username)){
