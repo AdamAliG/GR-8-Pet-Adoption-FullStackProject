@@ -53,10 +53,8 @@ $cards = "";
             $cards .= "<div class='col mb-4'>
                 <div class='card h-100'>
                     <div class='card-body'>
-                        <h5 class='card-title'>{$row["name"]}</h5>
-                        
-                    <img src='pictures/{$row["image"]}' class='card-img-top' alt='...'>
-                    
+                        <h5 class='card-title'>{$row["name"]}</h5>    
+                    <img src='../public/images/pet_images//{$row["image"]}' class='card-img-top' alt='...'>
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
                         <a href='details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
@@ -116,7 +114,7 @@ $cards = "";
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="pictures/<?= $row["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="../public/images/user_images/<?= $row["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $row["id"] ?>">Update</a>
