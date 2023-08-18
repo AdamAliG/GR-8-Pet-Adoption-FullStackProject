@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2023 at 12:59 PM
+-- Generation Time: Aug 18, 2023 at 03:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -75,6 +75,13 @@ CREATE TABLE `foster_to_adopt` (
   `status` enum('in_progress','completed','cancelled') DEFAULT NULL,
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `foster_to_adopt`
+--
+
+INSERT INTO `foster_to_adopt` (`id`, `user_id`, `pet_id`, `start_date`, `end_date`, `status`, `description`) VALUES
+(1, 10, 8, '2023-08-24', '2023-09-06', 'in_progress', 'Description');
 
 -- --------------------------------------------------------
 
@@ -256,7 +263,7 @@ ALTER TABLE `adoption_stories`
 -- AUTO_INCREMENT for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `messages`
