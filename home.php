@@ -3,10 +3,25 @@ session_start();
 
 if(!isset($_SESSION["user"]) && !isset($_SESSION["admin"])){ 
     header("Location: user_auth/login.php"); 
+    exit;
 }
 
+if(isset($_SESSION["admin"]) && !isset($_SESSION["user"])){ 
+    header("Location: dashboard.php");
+    exit;
+}
 
 require_once "db_connect.php";
+
+
+
+if (isset($_SESSION["user"])) {
+    $userId = intval($_SESSION["user"]); 
+    $sql = "SELECT * FROM users WHERE id = $userId";
+    $result = mysqli_query($connection, $sql);
+    $row = mysqli_fetch_assoc($result);
+    
+}
 
 $sql = "SELECT * FROM pets WHERE 1"; 
 
@@ -52,9 +67,9 @@ $cards = "";
     } else {
         $cards = "<p>No results found</p>";
     }
-    $sql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
-    $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
+    
+
+
     mysqli_close($connection);
 
 ?>

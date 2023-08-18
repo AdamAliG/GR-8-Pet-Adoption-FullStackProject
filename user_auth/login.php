@@ -2,7 +2,7 @@
     session_start();
 
     if(isset($_SESSION["user"])){ 
-        header("Location: Home und Details/Home.php"); 
+        header("../home.php"); 
     }
 
     if(isset($_SESSION["admin"])){ 
@@ -56,7 +56,7 @@
                     header("Location: ../dashboard.php");
                 }else {
                     $_SESSION["user"] = $row["id"]; 
-                    header("Location: Home und Details/home.php");
+                    header("Location:../home.php");
                 }
             }else {
                 echo "<div class='alert alert-danger'>

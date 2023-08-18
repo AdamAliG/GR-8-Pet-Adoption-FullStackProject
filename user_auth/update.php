@@ -48,7 +48,7 @@
         if (mysqli_query($connection, $updateQuery)) {
             echo "Updated Successfully!";
             if (isset($_SESSION['user'])) {
-                header("Location: Home und Details/Home.php");
+                header("Location: ../home.php");
             } elseif (isset($_SESSION['admin'])) {
                 header("Location: ../dashboard.php");
             } else {
