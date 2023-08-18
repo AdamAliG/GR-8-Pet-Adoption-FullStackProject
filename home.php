@@ -3,10 +3,25 @@ session_start();
 
 if(!isset($_SESSION["user"]) && !isset($_SESSION["admin"])){ 
     header("Location: user_auth/login.php"); 
+    exit;
 }
 
+if(isset($_SESSION["admin"]) && !isset($_SESSION["user"])){ 
+    header("Location: dashboard.php");
+    exit;
+}
 
 require_once "db_connect.php";
+
+
+
+if (isset($_SESSION["user"])) {
+    $userId = intval($_SESSION["user"]); 
+    $sql = "SELECT * FROM users WHERE id = $userId";
+    $result = mysqli_query($connection, $sql);
+    $row = mysqli_fetch_assoc($result);
+    
+}
 
 $sql = "SELECT * FROM pets WHERE 1"; 
 
@@ -52,9 +67,9 @@ $cards = "";
     } else {
         $cards = "<p>No results found</p>";
     }
-    $sql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
-    $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
+    
+
+
     mysqli_close($connection);
 
 ?>
@@ -73,10 +88,6 @@ $cards = "";
 </head>
 <body>
 
-<<<<<<< HEAD
-                <li class="nav-item">
-                <a class="nav-link" href="user_auth/update.php?id=<?= $row["id"] ?>">edit</a>
-=======
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="#">Pet Adoption</a>
@@ -88,12 +99,8 @@ $cards = "";
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
->>>>>>> a31db710a479a0bd6f0897c0f250d614f6c90a51
                 </li>
                 <li class="nav-item">
-<<<<<<< HEAD
-                    <a class="nav-link" href="user_auth/logout.php?logout">Logout</a>
-=======
                     <a class="nav-link" href="#">Adoption Stories</a>
                 </li>
                 <li class="nav-item">
@@ -104,7 +111,6 @@ $cards = "";
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
->>>>>>> a31db710a479a0bd6f0897c0f250d614f6c90a51
                 </li>
             </ul>
             
