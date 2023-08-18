@@ -55,7 +55,7 @@ $cards = "";
                     <div class='card-body'>
                         <h5 class='card-title'>{$row["name"]}</h5>
                         
-                    <img src='pictures/{$row["image"]}' class='card-img-top' alt='...'>
+                    <img src='public/images/pet_images/{$row["image"]}' class='card-img-top' alt='...'>
                     
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
