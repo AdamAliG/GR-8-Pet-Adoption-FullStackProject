@@ -12,9 +12,14 @@ if (!isset($_SESSION['admin'])) {
 } 
     
 
-    require_once "public/components/db_connect.php"; 
-    require_once "public/components/file_Upload.php"; 
+    require_once "db_connect.php"; 
+    require_once "file_Upload.php"; 
     require_once "public/functions.php";
+
+    if(isset($_POST['fost'])) {
+
+    }
+    
 
     $pet_id = 0;
     $user_id_req=0;
@@ -63,7 +68,7 @@ if (!isset($_SESSION['admin'])) {
     $sql = "select * from pets where id =". $pet_id;
 
 
-    $row = retreive_form_database($connect ,$sql);
+    $row = retreive_form_database($connection ,$sql);
 
     if ($row) {
         $name = $row['name'];
@@ -82,20 +87,20 @@ if (!isset($_SESSION['admin'])) {
     $sql = "select * from users where id =". $user_id_req;
 
 
-    $row = retreive_form_database($connect ,$sql);
+    $row = retreive_form_database($connection ,$sql);
 
     if ($row) {
         $username = $row['username'];
         $email = $row['email'];
         $reg_date = $row['registration_date'];
-        $picture_user = $row['image'];
+        $picture_user = $row['pictures'];
         $user_id_req =$row['id'];
     }
 
     if (!empty($new_status))  {
 
         $sql0= "select status from adoption_applications where pet_id=$pet_id and user_id=$user_id_req";
-        $rows0=retreive_form_database($connect,$sql0);
+        $rows0=retreive_form_database($connection,$sql0);
         $current_status = $rows0['status'];
         $status_g = $new_status;
 
@@ -106,7 +111,7 @@ if (!isset($_SESSION['admin'])) {
             $sql2 ="UPDATE pets SET `status`='adopted' WHERE id =".$pet_id;
             $sql3= "UPDATE adoption_applications set status='rejected', status_date=Now() where pet_id=$pet_id and user_id != $user_id_req";
 
-            if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3) ) {
+            if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) && mysqli_query($connection, $sql3) ) {
 
                 $layout .= "<div class='alert alert-success' role='alert'>
                 You have changed the Request Status!
@@ -122,7 +127,7 @@ if (!isset($_SESSION['admin'])) {
             if ($current_status=='approved') {
                 
                 $sql22= "select * from adoption_applications where status='rejected' and pet_id=$pet_id and user_id!=$user_id_req";
-                $rows2=retreive_form_database($connect,$sql22);
+                $rows2=retreive_form_database($connection,$sql22);
                 if ($rows2) {
                     $sql3 ="UPDATE pets SET `status`='pending' WHERE id =".$pet_id;
                     $sql2="UPDATE adoption_applications SET status='pending',status_date=Now() where pet_id=$pet_id and user_id != $user_id_req";
@@ -133,7 +138,7 @@ if (!isset($_SESSION['admin'])) {
 
             if ($current_status=='pending') {
                 $sql2= "select id from adoption_applications where status='pending' and pet_id=$pet_id and user_id!=$user_id_req";
-                $rows2=retreive_form_database($connect,$sql2);
+                $rows2=retreive_form_database($connection,$sql2);
                 if (!$rows2) {
                     $sql22 ="UPDATE pets SET `status`='not adopted' WHERE id =".$pet_id;
                 }
@@ -141,7 +146,7 @@ if (!isset($_SESSION['admin'])) {
             
             if (isset($sql3) && isset($sql2)) {
                
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3)) {
+                if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) && mysqli_query($connection, $sql3)) {
 
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status.Now the Pet is free for adoption requests.
@@ -151,7 +156,7 @@ if (!isset($_SESSION['admin'])) {
 
             } else if (isset($sql3)) {
 
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql3)) {
+                if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql3)) {
 
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status.Now the Pet status is not adopted.
@@ -161,7 +166,7 @@ if (!isset($_SESSION['admin'])) {
 
             } else if (isset($sql22)) {
 
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql22)) {
+                if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql22)) {
 
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status.Now the Pet status is not adopted.
@@ -171,7 +176,7 @@ if (!isset($_SESSION['admin'])) {
 
             } else {
 
-                if (mysqli_query($connect, $sql1)) {
+                if (mysqli_query($connection, $sql1)) {
 
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status!
@@ -191,21 +196,21 @@ if (!isset($_SESSION['admin'])) {
 
             if ($current_status=='rejected') {
                 $sql4= "select id from adoption_applications where status='approved' and pet_id=$pet_id and user_id!=$user_id_req";
-                $rows4=retreive_form_database($connect,$sql4);
+                $rows4=retreive_form_database($connection,$sql4);
                 if (!$rows4) {
                     $sql44 ="UPDATE pets SET `status`='pending' WHERE id =".$pet_id;
                 }
             }
 
             if (isset($sql3)) {
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql3)) {
+                if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) && mysqli_query($connection, $sql3)) {
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status!.Now the Pet is free for adoption requests!
                     </div>";
                     // header("refresh : 3 , url = index.php");
                 }
             } else if (isset($sql44)) {
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) && mysqli_query($connect, $sql44)) {
+                if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) && mysqli_query($connection, $sql44)) {
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status.
                     </div>";
@@ -213,7 +218,7 @@ if (!isset($_SESSION['admin'])) {
                 }
 
             }  else {
-                if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2)) {
+                if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2)) {
                     $layout .= "<div class='alert alert-success' role='alert'>
                     You have changed the Request Status!
                     </div>";
@@ -326,16 +331,25 @@ if (!isset($_SESSION['admin'])) {
             <div class="mb-3 w-90">
                 <label for="breed" class="form-label">Registration Date: </label><br><?=$reg_date ?>
             </div>
+            <div class="border border-primary p-2">
+            <h3 class="text-danger">Foster-to-Adopt Form</h3>
+            <form method="post">
+                Pet : <?=$name ?><input type="hidden" name="pet_id" value=<?=$pet_id ?>><br>
+                User : <?=$username ?><input type="hidden" name="user_id_req" value=<?=$user_id_req ?>><br><br>
+                Start Date : <input type="date" name="start_date" class="form-control" required><br>
+                End Date : <input type="date" name="end_date" class="form-control" required><br>
+                Description : <textarea name="description" id="description" cols="70" rows="5" required></textarea>
+                <br><br>
+                <button type="submit" name="fost" value="fost" class="btn btn-large btn-warning">Foster for <?=$username ?></button>
+            </form>
+            </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
-    <?php if ($adoption) { ?>
-        <a href="detail.php?pet_id=<?=$pet_id?>" class="btn btn-success">Take Me Home!</a>
-    <?php } ?>
     </div>
     <script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
 <?php
-mysqli_close($connect);
+mysqli_close($connection);
 ?>

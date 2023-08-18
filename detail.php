@@ -16,8 +16,8 @@ to put a request to database
      } 
     
 
-    require_once "public/components/db_connect.php"; 
-    require_once "public/components/file_Upload.php"; 
+    require_once "db_connect.php"; 
+    require_once "file_Upload.php"; 
     require_once "public/functions.php";
 
     $pet_id = 0;
@@ -49,7 +49,7 @@ to put a request to database
         $sql1 = "INSERT INTO `adoption_applications`(`user_id`, `pet_id`, `application_date`) VALUES ($user_id,$pet_id,NOW())";
         $sql2 = "UPDATE `pets` SET `status`='pending' WHERE id =".$pet_id;
 
-        if (mysqli_query($connect, $sql1) && mysqli_query($connect, $sql2) ) {
+        if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) ) {
 
             $layout .= "<div class='alert alert-success' role='alert'>
             Your request has registered. Pls wait for contact from shelter! :)
@@ -58,7 +58,7 @@ to put a request to database
 
             //$sql ="UPDATE `a` SET `status`='' WHERE id =".$pet_id;
 
-            // if (mysqli_query($connect, $sql)) {
+            // if (mysqli_query($connection, $sql)) {
 
             //     $layout .= "<div class='alert alert-success' role='alert'>
             //     Your request is registered. Pls wait for contact from shelter! :)
@@ -89,7 +89,7 @@ to put a request to database
     $sql = "select * from pets where id =". $pet_id;
 
 
-    $row = retreive_form_database($connect ,$sql);
+    $row = retreive_form_database($connection ,$sql);
 
     if ($row) {
         $name = $row['name'];
@@ -178,5 +178,5 @@ to put a request to database
 </body>
 </html>
 <?php
-mysqli_close($connect);
+mysqli_close($connection);
 ?>

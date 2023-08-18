@@ -36,11 +36,11 @@ $result = $connection->query($query);
                 </li>
 
                 <li class="nav-item">
-                <a class="nav-link" href="login_logout_register_crud/update.php?id=<?= $row["id"] ?>">edit</a>
+                <a class="nav-link" href="user_auth/update.php?id=<?= $row["id"] ?>">edit</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="user_crud/logout.php?logout">Logout</a>
+                    <a class="nav-link" href="user_auth/logout.php?logout">Logout</a>
                 </li>
             </ul>
         </div>
