@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2023 at 07:20 AM
+-- Generation Time: Aug 18, 2023 at 12:59 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -37,6 +37,15 @@ CREATE TABLE `adoption_applications` (
   `status_date` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `adoption_applications`
+--
+
+INSERT INTO `adoption_applications` (`id`, `pet_id`, `user_id`, `details`, `application_date`, `status`, `status_date`) VALUES
+(1, 9, 8, NULL, '2023-01-10', 'pending', '2023-01-10'),
+(2, 10, 10, NULL, '2023-01-10', 'pending', '2023-01-10'),
+(3, 8, 10, NULL, '2023-01-10', 'pending', '2023-01-10');
+
 -- --------------------------------------------------------
 
 --
@@ -63,7 +72,8 @@ CREATE TABLE `foster_to_adopt` (
   `pet_id` int(11) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `status` enum('in_progress','completed','terminated') DEFAULT 'in_progress'
+  `status` enum('in_progress','completed','cancelled') DEFAULT NULL,
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -89,14 +99,14 @@ CREATE TABLE `messages` (
 CREATE TABLE `pets` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `species` enum('dog','cat','bird','hamster','fish','other') DEFAULT NULL,
+  `species` enum('dog','cat','bird','hamster','fish') DEFAULT NULL,
   `description` text DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `added_by` int(11) DEFAULT NULL,
   `breed` varchar(100) DEFAULT 'No Breed',
   `status` enum('not adopted','adopted','pending') DEFAULT 'not adopted',
   `age` int(11) NOT NULL,
-  `image` varchar(150) DEFAULT 'default.jpg',
+  `image` varchar(150) DEFAULT 'avatar.jpg',
   `size` enum('small','medium','big') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -105,7 +115,9 @@ CREATE TABLE `pets` (
 --
 
 INSERT INTO `pets` (`id`, `name`, `species`, `description`, `location`, `added_by`, `breed`, `status`, `age`, `image`, `size`) VALUES
-(8, 'Aki', 'dog', 'Description', 'Berlin - Germany', 9, 'Akita', 'not adopted', 5, '64de54c50c9e4.jpg', 'big');
+(8, 'Aki', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Austria -Vienna', 9, 'Akita', 'not adopted', 7, 'avatar.jpg', 'big'),
+(9, 'Cesar', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Graz - Austria', 9, 'Shepherd', 'not adopted', 4, 'avatar.jpg', 'medium'),
+(10, 'Suzi', 'cat', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Berlin - Germany', 9, 'scotish', 'not adopted', 3, 'avatar.jpg', 'small');
 
 -- --------------------------------------------------------
 
@@ -155,9 +167,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `registration_date`, `pictures`, `role`) VALUES
-(7, 'Adam', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'electron.adam@proton.me', '2023-08-14', '64da39f6ae2af.png', 'admin'),
-(8, 'Ada', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'milegy@proton.me', '2023-08-14', '64dde75de1c62.png', 'user'),
-(9, 'user1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'user1@gmail.com', '2023-08-17', '64de27ec8c308.jpg', 'admin');
+(7, 'Adam', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'electron.adam@proton.me', '2023-08-14', '64df36f3b6fb5.png', 'admin'),
+(8, 'Adaa', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'milegy@proton.me', '2023-08-14', '64ddf9283a2f4.png', 'user'),
+(9, 'user1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'user1@gmail.com', '2023-08-01', '64de27ec8c308.jpg', 'admin'),
+(10, 'user2', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'user2@gmail.com', '0000-00-00', '64df2ae2ab09e.jpg', 'user');
 
 --
 -- Indexes for dumped tables
@@ -231,7 +244,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `adoption_stories`
@@ -255,7 +268,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pet_matchmaker`
@@ -273,7 +286,7 @@ ALTER TABLE `resource_library`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
