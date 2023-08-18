@@ -56,11 +56,11 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="login_logout_register_crud/update.php?id=<?= $row["id"] ?>">edit</a>
+                <a class="nav-link" href="user_crud/update.php?id=<?= $row["id"] ?>">edit</a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="login_logout_register_crud/logout.php?logout">Logout</a>
+                    <a class="nav-link" href="user_crud/logout.php?logout">Logout</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="pet_crud/add_pet.php?add_pet">Add Pet</a>

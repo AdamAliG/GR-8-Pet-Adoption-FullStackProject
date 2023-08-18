@@ -2,7 +2,7 @@
     session_start();
 
     if(isset($_SESSION["user"])){ 
-        header("Location: ../home.php"); 
+        header("Location: Home und Details/home.php"); 
     }
 
     if(isset($_SESSION["admin"])){
