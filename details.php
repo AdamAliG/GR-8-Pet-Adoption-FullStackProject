@@ -1,13 +1,23 @@
 <?php
   
+  session_start(); 
+
+  if(!isset($_SESSION["user"]) && !isset($_SESSION["admin"])){ 
+      header("Location: user_auth/login.php"); 
+  }
   
   require_once "db_connect.php";
     $id = $_GET["id"];
 
     $sql = "SELECT * FROM pets WHERE id = $id";
-    $result = mysqli_query($connect, $sql); 
+    $result = mysqli_query($connection, $sql); 
 
-    $row = mysqli_fetch_assoc($result)
+    $row = mysqli_fetch_assoc($result);
+    $usersql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
+    $result = mysqli_query($connection, $usersql);
+    $userrow = mysqli_fetch_assoc($result);
+    
+    
 ?>
 
 <!DOCTYPE html>
@@ -94,6 +104,7 @@
     }
     </style>
 </head>
+
 <link rel="stylesheet" href="styles.css">
 <body>
 <nav class="navbar navbar-expand-lg navbar-light ">
@@ -118,9 +129,21 @@
                     <a class="nav-link" href="#">Calendar for Volunteers</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ms-auto">
+            <a class="nav-item me-3" href="#">
+            <img src="pictures/<?= $userrow["pictures"] ?>" alt="user pic" width="35" height="30">
+            </a>
+                    <li class="nav-item me-3">
+                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userrow["id"] ?>">Edit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
+                    </li>
+                </ul>
         </div>
     </div>
 </nav>
+
 
 
 <div class="container mt-5">
@@ -147,6 +170,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

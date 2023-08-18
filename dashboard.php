@@ -56,7 +56,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="login_logout_register_crud/update.php?id=<?= $row["id"] ?>">edit</a>
+                <a class="nav-link" href="user_crud/update.php?id=<?= $row["id"] ?>">edit</a>
                 </li>
                 
                 <li class="nav-item">

@@ -17,6 +17,13 @@ if (!isset($_SESSION['admin'])) {
     require_once "public/functions.php";
 
     if(isset($_POST['fost'])) {
+        $pet_id = $_POST['pet_id'];
+        $user_id_req = $_POST['user_id_req'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $description = $_POST['description'];
+
+        $sqlfost = "INSERT INTO `adoption_applications`(`user_id`, `pet_id`, 'status','','',) VALUES ($user_id,$pet_id,NOW())";
 
     }
     
