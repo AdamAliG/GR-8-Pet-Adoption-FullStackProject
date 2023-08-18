@@ -88,10 +88,6 @@ $cards = "";
 </head>
 <body>
 
-<<<<<<< HEAD
-                <li class="nav-item">
-                <a class="nav-link" href="user_auth/update.php?id=<?= $row["id"] ?>">edit</a>
-=======
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="#">Pet Adoption</a>
@@ -103,12 +99,8 @@ $cards = "";
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
->>>>>>> a31db710a479a0bd6f0897c0f250d614f6c90a51
                 </li>
                 <li class="nav-item">
-<<<<<<< HEAD
-                    <a class="nav-link" href="user_auth/logout.php?logout">Logout</a>
-=======
                     <a class="nav-link" href="#">Adoption Stories</a>
                 </li>
                 <li class="nav-item">
@@ -119,7 +111,6 @@ $cards = "";
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
->>>>>>> a31db710a479a0bd6f0897c0f250d614f6c90a51
                 </li>
             </ul>
             
