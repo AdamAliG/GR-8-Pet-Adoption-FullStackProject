@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Aug 2023 um 11:48
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.0.28
+-- Generation Time: Aug 18, 2023 at 12:59 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,15 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `gr 8 - pet adoption - fullstackproject`
+-- Database: `gr 8 - pet adoption - fullstackproject`
 --
-CREATE DATABASE IF NOT EXISTS `gr 8 - pet adoption - fullstackproject` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gr 8 - pet adoption - fullstackproject`;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `adoption_applications`
+-- Table structure for table `adoption_applications`
 --
 
 CREATE TABLE `adoption_applications` (
@@ -39,10 +37,19 @@ CREATE TABLE `adoption_applications` (
   `status_date` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `adoption_applications`
+--
+
+INSERT INTO `adoption_applications` (`id`, `pet_id`, `user_id`, `details`, `application_date`, `status`, `status_date`) VALUES
+(1, 9, 8, NULL, '2023-01-10', 'pending', '2023-01-10'),
+(2, 10, 10, NULL, '2023-01-10', 'pending', '2023-01-10'),
+(3, 8, 10, NULL, '2023-01-10', 'pending', '2023-01-10');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `adoption_stories`
+-- Table structure for table `adoption_stories`
 --
 
 CREATE TABLE `adoption_stories` (
@@ -56,7 +63,7 @@ CREATE TABLE `adoption_stories` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `foster_to_adopt`
+-- Table structure for table `foster_to_adopt`
 --
 
 CREATE TABLE `foster_to_adopt` (
@@ -72,7 +79,7 @@ CREATE TABLE `foster_to_adopt` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `messages`
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
@@ -86,7 +93,7 @@ CREATE TABLE `messages` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `pets`
+-- Table structure for table `pets`
 --
 
 CREATE TABLE `pets` (
@@ -99,14 +106,23 @@ CREATE TABLE `pets` (
   `breed` varchar(100) DEFAULT 'No Breed',
   `status` enum('not adopted','adopted','pending') DEFAULT 'not adopted',
   `age` int(11) NOT NULL,
-  `image` varchar(150) DEFAULT 'default.jpg',
+  `image` varchar(150) DEFAULT 'avatar.jpg',
   `size` enum('small','medium','big') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pets`
+--
+
+INSERT INTO `pets` (`id`, `name`, `species`, `description`, `location`, `added_by`, `breed`, `status`, `age`, `image`, `size`) VALUES
+(8, 'Aki', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Austria -Vienna', 9, 'Akita', 'not adopted', 7, 'avatar.jpg', 'big'),
+(9, 'Cesar', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Graz - Austria', 9, 'Shepherd', 'not adopted', 4, 'avatar.jpg', 'medium'),
+(10, 'Suzi', 'cat', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Berlin - Germany', 9, 'scotish', 'not adopted', 3, 'avatar.jpg', 'small');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `pet_matchmaker`
+-- Table structure for table `pet_matchmaker`
 --
 
 CREATE TABLE `pet_matchmaker` (
@@ -119,7 +135,7 @@ CREATE TABLE `pet_matchmaker` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `resource_library`
+-- Table structure for table `resource_library`
 --
 
 CREATE TABLE `resource_library` (
@@ -133,7 +149,7 @@ CREATE TABLE `resource_library` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -147,19 +163,21 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `registration_date`, `pictures`, `role`) VALUES
 (7, 'Adam', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'electron.adam@proton.me', '2023-08-14', '64df36f3b6fb5.png', 'admin'),
-(8, 'Adaa', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'milegy@proton.me', '2023-08-14', '64ddf9283a2f4.png', 'user');
+(8, 'Adaa', '6f649d6db9caef94d142e4c6de49f938ddf65cc70a0989f60d82ffff6ea148e5', 'milegy@proton.me', '2023-08-14', '64ddf9283a2f4.png', 'user'),
+(9, 'user1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'user1@gmail.com', '2023-08-01', '64de27ec8c308.jpg', 'admin'),
+(10, 'user2', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'user2@gmail.com', '0000-00-00', '64df2ae2ab09e.jpg', 'user');
 
 --
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `adoption_applications`
+-- Indexes for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
   ADD PRIMARY KEY (`id`),
@@ -167,14 +185,14 @@ ALTER TABLE `adoption_applications`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indizes für die Tabelle `adoption_stories`
+-- Indexes for table `adoption_stories`
 --
 ALTER TABLE `adoption_stories`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indizes für die Tabelle `foster_to_adopt`
+-- Indexes for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
   ADD PRIMARY KEY (`id`),
@@ -182,7 +200,7 @@ ALTER TABLE `foster_to_adopt`
   ADD KEY `pet_id` (`pet_id`);
 
 --
--- Indizes für die Tabelle `messages`
+-- Indexes for table `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
@@ -190,14 +208,14 @@ ALTER TABLE `messages`
   ADD KEY `receiver_id` (`receiver_id`);
 
 --
--- Indizes für die Tabelle `pets`
+-- Indexes for table `pets`
 --
 ALTER TABLE `pets`
   ADD PRIMARY KEY (`id`),
   ADD KEY `added_by` (`added_by`);
 
 --
--- Indizes für die Tabelle `pet_matchmaker`
+-- Indexes for table `pet_matchmaker`
 --
 ALTER TABLE `pet_matchmaker`
   ADD PRIMARY KEY (`id`),
@@ -205,117 +223,117 @@ ALTER TABLE `pet_matchmaker`
   ADD KEY `matched_pet_id` (`matched_pet_id`);
 
 --
--- Indizes für die Tabelle `resource_library`
+-- Indexes for table `resource_library`
 --
 ALTER TABLE `resource_library`
   ADD PRIMARY KEY (`id`),
   ADD KEY `added_by` (`added_by`);
 
 --
--- Indizes für die Tabelle `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `adoption_applications`
+-- AUTO_INCREMENT for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT für Tabelle `adoption_stories`
+-- AUTO_INCREMENT for table `adoption_stories`
 --
 ALTER TABLE `adoption_stories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `foster_to_adopt`
+-- AUTO_INCREMENT for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `messages`
+-- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `pets`
+-- AUTO_INCREMENT for table `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT für Tabelle `pet_matchmaker`
+-- AUTO_INCREMENT for table `pet_matchmaker`
 --
 ALTER TABLE `pet_matchmaker`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `resource_library`
+-- AUTO_INCREMENT for table `resource_library`
 --
 ALTER TABLE `resource_library`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Constraints der exportierten Tabellen
+-- Constraints for dumped tables
 --
 
 --
--- Constraints der Tabelle `adoption_applications`
+-- Constraints for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
   ADD CONSTRAINT `adoption_applications_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`),
   ADD CONSTRAINT `adoption_applications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `adoption_stories`
+-- Constraints for table `adoption_stories`
 --
 ALTER TABLE `adoption_stories`
   ADD CONSTRAINT `adoption_stories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `foster_to_adopt`
+-- Constraints for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
   ADD CONSTRAINT `foster_to_adopt_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `foster_to_adopt_ibfk_2` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`);
 
 --
--- Constraints der Tabelle `messages`
+-- Constraints for table `messages`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `pets`
+-- Constraints for table `pets`
 --
 ALTER TABLE `pets`
   ADD CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `pet_matchmaker`
+-- Constraints for table `pet_matchmaker`
 --
 ALTER TABLE `pet_matchmaker`
   ADD CONSTRAINT `pet_matchmaker_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `pet_matchmaker_ibfk_2` FOREIGN KEY (`matched_pet_id`) REFERENCES `pets` (`id`);
 
 --
--- Constraints der Tabelle `resource_library`
+-- Constraints for table `resource_library`
 --
 ALTER TABLE `resource_library`
   ADD CONSTRAINT `resource_library_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`);

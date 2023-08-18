@@ -13,10 +13,10 @@ function clean_inputs($data) {
     return $data;
 }
 
-function check_form_database($connect ,$sql) {
+function check_form_database($connection ,$sql) {
 
     
-    $result = mysqli_query($connect , $sql);
+    $result = mysqli_query($connection , $sql);
     
     if (mysqli_num_rows($result) > 0) {
 
@@ -27,9 +27,9 @@ function check_form_database($connect ,$sql) {
     return false;
 }
 
-function retreive_form_database($connect ,$sql) {
+function retreive_form_database($connection ,$sql) {
 
-    $result = mysqli_query($connect , $sql);
+    $result = mysqli_query($connection , $sql);
     $row = mysqli_fetch_assoc($result);
 
     if (mysqli_num_rows($result) > 0) {
