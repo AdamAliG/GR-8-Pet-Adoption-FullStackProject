@@ -49,16 +49,18 @@ if (isset($sql)) {
     if(mysqli_num_rows($result) > 0){
 
         while($rows = mysqli_fetch_assoc($result)){
-
+            $sqlfost="SELECT * from foster_to_adopt inner join users on (user_id = users.id) where pet_id={$rows['pet_id']} and status='in_progress'  order by foster_to_adopt.id desc ";
+            $rows3=retreive_form_database($connection ,$sqlfost);
             $layer.="
                 <div class='card' style='width: 22rem;'>
                 <img src='public/images/pet_images/{$rows['pimage']}' class='card-img-top' alt='...'>
                 <div class='card-body'>
                 <h5 class='card-title'>{$rows['name']}</h5>
-                <p class='card-text'>
-                Request From : {$rows['username']}
-                <br>
-                Request Status : <b>{$rows['status_req']}</b>";
+                <p class='card-text'>";
+                if ($rows3) {
+                    $layer.="<b>Fosted by:".$rows3['username']."<br>from: ".$rows3['start_date']." to: ".$rows3['end_date']."</b><br>";
+                }
+                $layer.="Request From : {$rows['username']}<br>Request Status : <b>{$rows['status_req']}</b>";
                 if ($rows['status_req']=='rejected') {
                     $sql2="SELECT username,id from users where id = (select user_id from adoption_applications where status='approved' and  pet_id={$rows['pet_id']} ) ";
                     // echo $sql2;
