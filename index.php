@@ -7,19 +7,18 @@ it has detail, and adoption request for each case
 
 
 session_start();
-// $_SESSION['user']= 3;
+//$_SESSION['user']= 3;
 if (!isset($_SESSION['user'])) {
-    header( "Location: login.php" );
+    header( "Location: login.php");
 } 
 
-require_once 'public/components/db_connect.php';
+require_once 'db_connect.php';
 require_once "public/functions.php";
 
 $sql1 = "SELECT * FROM pets";
-$result = mysqli_query($connect ,$sql1);
+$result = mysqli_query($connection ,$sql1);
 
 $layer="";
-
 $layer.="<div class='d-flex justify-content-center'><div class='grid-container'>";
 
 if(mysqli_num_rows($result) > 0){
@@ -27,7 +26,7 @@ if(mysqli_num_rows($result) > 0){
     while($rows = mysqli_fetch_assoc($result)){
 
         $sql2="select id,status from adoption_applications where pet_id = {$rows['id']} and user_id = {$_SESSION['user']}";
-        $rows2=retreive_form_database($connect ,$sql2);
+        $rows2=retreive_form_database($connection ,$sql2);
 
         $layer.="
             <div class='card' style='width: 20rem;'>

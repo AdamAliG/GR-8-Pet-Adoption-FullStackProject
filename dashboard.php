@@ -60,7 +60,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="user_crud/logout.php?logout">Logout</a>
+                    <a class="nav-link" href="user_auth/logout.php?logout">Logout</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="pet_crud/add_pet.php?add_pet">Add Pet</a>
