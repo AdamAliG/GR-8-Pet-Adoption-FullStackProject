@@ -56,13 +56,11 @@ if (isset($sql)) {
                 <img src='public/images/pet_images/{$rows['pimage']}' class='card-img-top' alt='...'>
                 <div class='card-body'>
                 <h5 class='card-title'>{$rows['name']}</h5>
-                <p class='card-text'>
-                Request From : {$rows['username']}
-                <br>";
-                if ($row3) {
-                    $layer.="Fosted by:".$rows3['username']."from: ".$rows3['start_date']." to: ".$rows3['end_date']."<br>";
+                <p class='card-text'>";
+                if ($rows3) {
+                    $layer.="<b>Fosted by:".$rows3['username']."<br>from: ".$rows3['start_date']." to: ".$rows3['end_date']."</b><br>";
                 }
-                $layer.="Request Status : <b>{$rows['status_req']}</b>";
+                $layer.="Request From : {$rows['username']}<br>Request Status : <b>{$rows['status_req']}</b>";
                 if ($rows['status_req']=='rejected') {
                     $sql2="SELECT username,id from users where id = (select user_id from adoption_applications where status='approved' and  pet_id={$rows['pet_id']} ) ";
                     // echo $sql2;
