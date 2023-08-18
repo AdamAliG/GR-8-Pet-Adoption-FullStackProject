@@ -6,7 +6,7 @@
       header("Location: user_auth/login.php"); 
   }
   
-  require_once "db_connect.php";
+  require_once "../db_connect.php";
     $id = $_GET["id"];
 
     $sql = "SELECT * FROM pets WHERE id = $id";
@@ -131,7 +131,7 @@
             </ul>
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-            <img src="pictures/<?= $userrow["pictures"] ?>" alt="user pic" width="35" height="30">
+            <img src="public/images/user_images/<?= $userrow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item me-3">
                         <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userrow["id"] ?>">Edit</a>
@@ -165,7 +165,7 @@
                     <p class="card-text"><strong>Size:</strong> <?= $row["size"] ?></p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="Home.php" class="btn btn-warning">Back to Home Page</a>
+                    <a href="../Home.php" class="btn btn-warning">Back to Home Page</a>
                 </div>
             </div>
         </div>
