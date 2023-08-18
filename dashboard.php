@@ -17,7 +17,7 @@
         $adminId = intval($_SESSION["admin"]); 
         $sql = "SELECT * FROM users WHERE id = $adminId";
         $result = mysqli_query($connection, $sql);
-        $row = mysqli_fetch_assoc($result);
+        $adminRow = mysqli_fetch_assoc($result);
         
     }
 
@@ -56,6 +56,8 @@ if (isset($_GET['status'])) {
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
                         <a href='details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
+                        <a href='pet_crud/edit_pet.php?id={$row["id"]}'>Edit</a>
+                        <a href='pet_crud/delete_pet.php?id={$row["id"]}'>Delete</a>
                     </div>
                 </div>
             </div>";
@@ -82,8 +84,7 @@ if (isset($_GET['status'])) {
     
 </head>
 <body>
-<a href="pet_crud/edit_pet.php?id=<?= $row['id'] ?>">Edit</a> | 
-                    <a href="pet_crud/delete_pet.php?id=<?= $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</a>
+
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="#">Pet Adoption</a>
@@ -116,10 +117,10 @@ if (isset($_GET['status'])) {
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="pictures/<?= $row["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="../public/images/user_images/<?= $adminRow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $row["id"] ?>">Update</a>
+                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $adminRow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>

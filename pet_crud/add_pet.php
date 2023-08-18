@@ -19,9 +19,9 @@ if(isset($_POST['submit'])){
     $image = fileUpload($_FILES["image"],'pet');
     $size = $_POST['size'];
     $status = $_POST['status'];
-    $addey_by = $_SESSION["admin"];
+    $added_by = $_SESSION["admin"];
 
-    $query = "INSERT INTO pets (name, species, description,  location, breed, status, age, image, size, added_by) VALUES ('$name', '$species','$description', '$location',  '$breed', '$status' ,  $age, '$image[0]', '$size', $addey_by )";
+    $query = "INSERT INTO pets (name, species, description,  location, breed, status, age, image, size, added_by) VALUES ('$name', '$species','$description', '$location',  '$breed', '$status' ,  $age, '$image[0]', '$size', $added_by )";
 
 
     if($connection->query($query)) {
