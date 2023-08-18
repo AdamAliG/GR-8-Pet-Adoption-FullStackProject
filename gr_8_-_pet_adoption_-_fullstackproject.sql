@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2023 at 07:13 PM
+-- Generation Time: Aug 18, 2023 at 07:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,7 +33,8 @@ CREATE TABLE `adoption_applications` (
   `user_id` int(11) DEFAULT NULL,
   `details` text DEFAULT NULL,
   `application_date` date DEFAULT curdate(),
-  `status` enum('pending','approved','rejected') DEFAULT 'pending'
+  `status` enum('pending','approved','rejected') DEFAULT 'pending',
+  `status_date` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
