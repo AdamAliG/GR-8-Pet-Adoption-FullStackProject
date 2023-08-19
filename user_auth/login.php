@@ -2,7 +2,7 @@
     session_start();
 
     if(isset($_SESSION["user"])){ 
-        header("../home.php"); 
+        header("Location:../home.php"); 
     }
 
     if(isset($_SESSION["admin"])){ 
@@ -24,47 +24,48 @@
     $email = ""; 
     $emailError = $passError = ""; 
 
-    if(isset($_POST["login"])){
-        $email = cleanInputs($_POST["email"]);
-        $password = cleanInputs($_POST["password"]);
+    
+if(isset($_POST["login"])){
+    $email = cleanInputs($_POST["email"]);
+    $password = cleanInputs($_POST["password"]);
 
-        
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ 
-            $error = true;
-            $emailError = "Please enter a valid email address";
-        }
-
-        
-        if (empty($password)) {
-            $error = true;
-            $passError = "Password can't be empty!";
-        }
-
-        if(!$error){ 
-            
-            $password = hash("sha256", $password);
-
-            $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-
-            $result = mysqli_query($connection, $sql);
-
-            $row = mysqli_fetch_assoc($result);
-
-            if(mysqli_num_rows($result) == 1){
-                if($row["role"] == "admin"){
-                    $_SESSION["admin"] = $row["id"]; 
-                    header("Location: ../dashboard.php");
-                }else {
-                    $_SESSION["user"] = $row["id"]; 
-                    header("Location:../home.php");
-                }
-            }else {
-                echo "<div class='alert alert-danger'>
-                        <p>Something went wrong, please try again later ...</p>
-                      </div>";
-            }
-        }
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ 
+        $error = true;
+        $emailError = "Please enter a valid email address";
     }
+
+    if (empty($password)) {
+        $error = true;
+        $passError = "Password can't be empty!";
+    }
+
+    if(!$error){ 
+        
+        $stmt = $connection->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if($row && password_verify($password, $row["password"])){ 
+            if($row["role"] == "admin"){
+                $_SESSION["admin"] = $row["id"]; 
+                header("Location: ../dashboard.php");
+            }else {
+                $_SESSION["user"] = $row["id"]; 
+                header("Location:../home.php");
+            }
+        }else {
+            echo "<div class='alert alert-danger'>
+                    <p>Incorrect email or password, please try again.</p>
+                  </div>";
+        }
+        $stmt->close();
+    }
+}
+
+
 ?>
 
 <!doctype html>

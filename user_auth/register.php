@@ -2,7 +2,7 @@
     session_start();
 
     if(isset($_SESSION["user"])){ 
-        header("../home.php"); 
+        header("Location: ../home.php"); 
     }
 
     if(isset($_SESSION["admin"])){
@@ -67,21 +67,30 @@
 
         if(!$error){ 
             
-            $password = hash("sha256", $password);
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
 
             $sql = "INSERT INTO users (username, password, email, pictures) VALUES ('$username', '$password', '$email', '$pictures[0]')";
 
             $result = mysqli_query($connection, $sql);
 
-            if($result){
-                echo "<div class='alert alert-success'>
-                <p>New account has been created, $pictures[1]</p>
-            </div>";
-            }else {
-                echo "<div class='alert alert-danger'>
-                <p>Something went wrong, please try again later ...</p>
-            </div>";
+            if($result) {
+                $last_id = mysqli_insert_id($connection); 
+                $roleQuery = "SELECT role FROM users WHERE id = $last_id";
+                $roleResult = mysqli_query($connection, $roleQuery);
+                $user = mysqli_fetch_assoc($roleResult);
+            
+                if ($user['role'] == 'admin') {
+                    $_SESSION["admin"] = $last_id;
+                    header("Location: ../dashboard.php");
+                    exit;
+                } else {
+                    $_SESSION["user"] = $last_id;
+                    header("Location: ../home.php");
+                    exit;
+                }
             }
+            
         }
     }
 ?>

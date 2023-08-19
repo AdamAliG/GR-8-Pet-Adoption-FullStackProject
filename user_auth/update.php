@@ -3,11 +3,17 @@
 
     require_once "../db_connect.php";
     include "../file_upload.php";
-
-    
+    function getRedirectUrl() {
+        if (isset($_SESSION['admin'])) {
+            return "../dashboard.php";
+        } elseif (isset($_SESSION['user'])) {
+            return "../home.php";
+        } else {
+            return "login.php";
+        }
+    }
     $currentUserId = $_SESSION["user"] ?? $_SESSION["admin"] ?? null;
 
-    
     if (!$currentUserId) {
         header("Location: login.php");
         exit;
@@ -15,12 +21,10 @@
 
     $userId = $_GET["id"] ?? 0;
 
-    // Ensure the user is updating their own profile
     if ($userId != $currentUserId) {
         die("Unauthorized Access!");
     }
 
-    // Fetch user data from the database
     $sql = "SELECT * FROM users WHERE id = $userId";
     $result = mysqli_query($connection, $sql);
     if (!$result) {
@@ -30,8 +34,32 @@
     $user = mysqli_fetch_assoc($result);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST["username"];
-        $email = $_POST["email"];
+        $username = $_POST["username"] ?? $user["username"];
+        $email = (isset($_POST["email"]) && !empty(trim($_POST["email"]))) ? trim($_POST["email"]) : $user["email"];
+        $password = $_POST["password"];
+        
+        $redirectUrl = getRedirectUrl();
+
+        if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header("Refresh: 2; url=$redirectUrl");
+            die("Invalid email format!");
+        }
+
+        if (empty($username)) {
+            header("Refresh: 2; url=$redirectUrl");
+            die("Username is required!");
+        }
+
+        if (!empty($username)) {
+            if (strlen($username) < 5) {
+                header("Refresh: 2; url=$redirectUrl");
+                die("Username must be at least 5 characters long!");
+            }
+            if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+                header("Refresh: 2; url=$redirectUrl");
+                die("Username can only contain letters and numbers!");
+            }
+        }
 
         if (isset($_FILES['pictures']) && $_FILES['pictures']['error'] !== 4) { 
             list($pictureName, $uploadMessage) = fileUpload($_FILES['pictures'], 'user');
@@ -43,7 +71,19 @@
             $pictureName = $user["pictures"];
         }
 
-        $updateQuery = "UPDATE users SET username = '$username', email = '$email', pictures = '$pictureName' WHERE id = $userId";
+        $updateQuery = "UPDATE users SET username = '$username', email = '$email', pictures = '$pictureName'";
+
+        
+        if (!empty($password)) {
+            if(strlen($password) < 5) {
+                header("Refresh: 2; url=update.php");
+                die("Password must be at least 5 characters long!");
+            }
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $updateQuery .= ", password = '$hashedPassword'";
+        }
+
+        $updateQuery .= " WHERE id = $userId";
 
         if (mysqli_query($connection, $updateQuery)) {
             echo "Updated Successfully!";
@@ -52,7 +92,6 @@
             } elseif (isset($_SESSION['admin'])) {
                 header("Location: ../dashboard.php");
             } else {
-                
                 header("Location: login.php");
             }
             exit;
@@ -62,6 +101,8 @@
     }
     mysqli_close($connection);
 ?>
+
+
 
 
 
@@ -87,6 +128,10 @@
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="<?= $user["email"] ?>">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">password:</label>
+                <input type="password" class="form-control" id="password" name="password">
             </div>
             <div class="mb-3">
                     <label for="pictures" class="form-label">Profile picture</label>

@@ -19,7 +19,7 @@ if (isset($_SESSION["user"])) {
     $userId = intval($_SESSION["user"]); 
     $sql = "SELECT * FROM users WHERE id = $userId";
     $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $userRow = mysqli_fetch_assoc($result);
     
 }
 
@@ -116,10 +116,10 @@ $cards = "";
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="../public/images/user_images/<?= $row["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="../public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $row["id"] ?>">Update</a>
+                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
