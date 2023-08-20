@@ -3,7 +3,7 @@ session_start();
 
 require_once "../db_connect.php";
 include "../file_upload.php";
-
+$showForm = true;
 function getRedirectUrl() {
     if (isset($_SESSION['admin'])) {
         return "../dashboard.php";
@@ -85,9 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updateQuery .= " WHERE id = $userId";
 
         if (mysqli_query($connection, $updateQuery)) {
-            echo "Updated Successfully!";
-            header("Refresh: 2; url=".$redirectUrl);
-            exit;
+            $updateMessage = "Updated Successfully!";
+            $showForm = false;
+            header("Refresh: 3; url=".$redirectUrl);
         } else {
             echo "Error: " . mysqli_error($connection);
         }
@@ -113,52 +113,81 @@ mysqli_close($connection);
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Edit Profile</h2>
-        <form action="update.php?id=<?= $userId ?>" method="post" enctype="multipart/form-data">
 
-            <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-    <input type="text" class="form-control" id="username" name="username" value="<?= $user["username"] ?>">
-    <?php if (!empty($errorUsername)): ?>
-        <div class="alert alert-danger mt-2"><?= $errorUsername ?></div>
-    <?php endif; ?>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?= $user["email"] ?>">
-                <?php if (!empty($errorEmail)): ?>
-                    <div class="alert alert-danger mt-2"><?= $errorEmail ?></div>
+        <?php if ($showForm): ?>
+
+            <h2>Edit Profile</h2>
+
+            <?php if (isset($updateMessage)): ?>
+                <h3 class="text-success"><?= $updateMessage; ?></h3>
+            <?php endif; ?>
+
+            <form action="update.php?id=<?= $userId ?>" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?= $user["username"] ?>">
+                    <?php if (!empty($errorUsername)): ?>
+                        <div class="alert alert-danger mt-2"><?= $errorUsername ?></div>
                     <?php endif; ?>
-            </div>
-            <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" name="password">
-                <?php if (!empty($errorPassword)): ?>
-                    <div class="alert alert-danger mt-2"><?= $errorPassword ?></div>
-                <?php endif; ?>
-            </div>
-            <div class="mb-3">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?= $user["email"] ?>">
+                    <?php if (!empty($errorEmail)): ?>
+                        <div class="alert alert-danger mt-2"><?= $errorEmail ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    <?php if (!empty($errorPassword)): ?>
+                        <div class="alert alert-danger mt-2"><?= $errorPassword ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="mb-3">
                     <label for="pictures" class="form-label">Profile picture</label>
                     <input type="file" class="form-control" id="pictures" name="pictures">
                 </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-    </div>
-    <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        var alerts = document.querySelectorAll('.alert');
 
-        
-        alerts.forEach(function(alert) {
-            setTimeout(function() {
-                alert.style.display = 'none';
-            }, 2000);
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+
+        <?php else: ?>
+
+            <div class="text-center" style="height: 60vh; display: flex; align-items: center; justify-content: center;">
+                <h1 class="display-4"><?= $updateMessage; ?></h1>
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var alerts = document.querySelectorAll('.alert');
+
+            alerts.forEach(function(alert) {
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 2000);
+            });
         });
-    });
-</script>
+
+        <?php if (isset($updateMessage) && !$showForm): ?>
+        document.addEventListener('DOMContentLoaded', function() {
+            var redirectUrl = "<?= $redirectUrl; ?>";
+
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, 3000);
+        });
+        <?php endif; ?>
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

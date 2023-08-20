@@ -13,6 +13,7 @@
     require_once "../file_upload.php";
 
     $error = false;  
+    $welcomeMsg = '';
 
     function cleanInputs($input){ 
         $data = trim($input); 
@@ -34,7 +35,7 @@
         
         if(empty($username)){
             $error = true;
-            $usernameError= "Please, enter your first name";
+            $usernameError= "Please, enter your username";
         }elseif(strlen($username) < 3){
             $error = true;
             $usernameError = "Name must have at least 3 characters.";
@@ -82,14 +83,10 @@
             
                 if ($user['role'] == 'admin') {
                     $_SESSION["admin"] = $last_id;
-                    echo "Welcome Admin";
-                    header("Refresh: 2; url=../dashboard.php");
-                    exit;
+                    $welcomeMsg = "Welcome Admin!";
                 } else {
                     $_SESSION["user"] = $last_id;
-                    echo "Welcome User";
-                    header("Refresh: 2; url=../home.php");
-                    exit;
+                    $welcomeMsg = "Welcome User!";
                 }
             }
             
@@ -104,18 +101,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sign Up</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <style>
+            .welcome-message {
+                opacity: 0;
+                transition: opacity 0.5s;
+            }
+
+            #form-container {
+                transition: opacity 0.5s;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <h1 class="text-center">Sign Up</h1>
+            <div id="form-container">
             <form method="post" autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3 mt-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="username" value="<?= $username ?>">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= $username ?>">
                     <span class="text-danger"><?= $usernameError ?></span>
                 </div>
-               
-                
                 <div class="mb-3">
                     <label for="pictures" class="form-label">Profile picture</label>
                     <input type="file" class="form-control" id="pictures" name="pictures">
@@ -131,11 +137,33 @@
                     <span class="text-danger"><?= $passError ?></span>
                 </div>
                 <button name="sign-up" type="submit" class="btn btn-primary">Create account</button>
-                
                 <span>you have an account already? <a href="login.php">sign in here</a></span>
             </form>
+            </div>
+            <h1 class="welcome-message mt-3 text-center"><?php echo $welcomeMsg; ?></h1>
         </div>
-        
+
+        <script>
+            if (document.querySelector('.welcome-message').textContent !== '') {
+                document.getElementById('form-container').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.welcome-message').style.opacity = '1';
+                }, 100); 
+
+                setTimeout(() => {
+                    document.querySelector('.welcome-message').style.opacity = '0';
+                }, 2000); 
+
+                setTimeout(() => {
+                    if (document.querySelector('.welcome-message').textContent.includes('Admin')) {
+                        window.location.href = "../dashboard.php";
+                    } else {
+                        window.location.href = "../home.php";
+                    }
+                }, 3000); 
+            }
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </body>
 </html>
