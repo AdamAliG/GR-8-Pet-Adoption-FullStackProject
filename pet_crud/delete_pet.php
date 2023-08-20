@@ -12,7 +12,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     if($connection->query($query)) {
         echo "Pet deleted successfully!";
         
-        header("Location: ../dashboard.php");
+        header("Refresh: 2; url=../dashboard.php");
     } else {
         echo "Error deleting pet: " . $connection->error;
     }

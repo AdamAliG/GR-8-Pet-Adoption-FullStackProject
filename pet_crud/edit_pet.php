@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
         $query = "UPDATE pets SET name='$name', species='$species', description='$description', location='$location', breed='$breed', age ='$age', image=' $image', size= '$size'  WHERE id='$id'";
         if ($connection->query($query)) {
             echo "Pet updated successfully!";
-            header("Location: ../dashboard.php");
+            header("Refresh: 2; url= ../dashboard.php");
         } else {
             echo "Error updating pet!";
         }

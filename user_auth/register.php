@@ -82,11 +82,13 @@
             
                 if ($user['role'] == 'admin') {
                     $_SESSION["admin"] = $last_id;
-                    header("Location: ../dashboard.php");
+                    echo "Welcome Admin";
+                    header("Refresh: 2; url=../dashboard.php");
                     exit;
                 } else {
                     $_SESSION["user"] = $last_id;
-                    header("Location: ../home.php");
+                    echo "Welcome User";
+                    header("Refresh: 2; url=../home.php");
                     exit;
                 }
             }

@@ -1,66 +1,70 @@
 <?php
-    session_start(); 
+session_start();
 
-    require_once "../db_connect.php";
-    include "../file_upload.php";
-    function getRedirectUrl() {
-        if (isset($_SESSION['admin'])) {
-            return "../dashboard.php";
-        } elseif (isset($_SESSION['user'])) {
-            return "../home.php";
-        } else {
-            return "login.php";
-        }
+require_once "../db_connect.php";
+include "../file_upload.php";
+
+function getRedirectUrl() {
+    if (isset($_SESSION['admin'])) {
+        return "../dashboard.php";
+    } elseif (isset($_SESSION['user'])) {
+        return "../home.php";
+    } else {
+        return "login.php";
     }
-    $currentUserId = $_SESSION["user"] ?? $_SESSION["admin"] ?? null;
+}
 
-    if (!$currentUserId) {
-        header("Location: login.php");
-        exit;
+$currentUserId = $_SESSION["user"] ?? $_SESSION["admin"] ?? null;
+
+if (!$currentUserId) {
+    header("Location: login.php");
+    exit;
+}
+
+$userId = $_GET["id"] ?? 0;
+
+if ($userId != $currentUserId) {
+    die("Unauthorized Access!");
+}
+
+$sql = "SELECT * FROM users WHERE id = $userId";
+$result = mysqli_query($connection, $sql);
+if (!$result) {
+    die("Error executing query: " . mysqli_error($connection));
+}
+
+$user = mysqli_fetch_assoc($result);
+
+$errorEmail = '';
+$errorUsername = '';
+$errorPassword = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = isset($_POST["username"]) && trim($_POST["username"]) !== '' ? trim($_POST["username"]) : null;
+    $email = (isset($_POST["email"]) && !empty(trim($_POST["email"]))) ? trim($_POST["email"]) : null;
+    $password = $_POST["password"];
+    
+    $redirectUrl = getRedirectUrl();
+
+    if (is_null($username) || $username == '') {
+        $errorUsername = "Username is required!";
+    } elseif (strlen($username) < 3) {
+        $errorUsername = "Username must be at least 3 characters long!";
+    } elseif (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+        $errorUsername = "Username can only contain letters and numbers!";
     }
 
-    $userId = $_GET["id"] ?? 0;
-
-    if ($userId != $currentUserId) {
-        die("Unauthorized Access!");
+    if (is_null($email) || $email == '') {
+        $errorEmail = "Email is required!";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorEmail = "Invalid email format!";
     }
 
-    $sql = "SELECT * FROM users WHERE id = $userId";
-    $result = mysqli_query($connection, $sql);
-    if (!$result) {
-        die("Error executing query: " . mysqli_error($connection));
+    if (!empty($password) && strlen($password) < 6) {
+        $errorPassword = "Password must be at least 6 characters long!";
     }
 
-    $user = mysqli_fetch_assoc($result);
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST["username"] ?? $user["username"];
-        $email = (isset($_POST["email"]) && !empty(trim($_POST["email"]))) ? trim($_POST["email"]) : $user["email"];
-        $password = $_POST["password"];
-        
-        $redirectUrl = getRedirectUrl();
-
-        if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            header("Refresh: 2; url=$redirectUrl");
-            die("Invalid email format!");
-        }
-
-        if (empty($username)) {
-            header("Refresh: 2; url=$redirectUrl");
-            die("Username is required!");
-        }
-
-        if (!empty($username)) {
-            if (strlen($username) < 5) {
-                header("Refresh: 2; url=$redirectUrl");
-                die("Username must be at least 5 characters long!");
-            }
-            if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-                header("Refresh: 2; url=$redirectUrl");
-                die("Username can only contain letters and numbers!");
-            }
-        }
-
+    if (empty($errorUsername) && empty($errorEmail) && empty($errorPassword)) {  
         if (isset($_FILES['pictures']) && $_FILES['pictures']['error'] !== 4) { 
             list($pictureName, $uploadMessage) = fileUpload($_FILES['pictures'], 'user');
 
@@ -73,12 +77,7 @@
 
         $updateQuery = "UPDATE users SET username = '$username', email = '$email', pictures = '$pictureName'";
 
-        
         if (!empty($password)) {
-            if(strlen($password) < 5) {
-                header("Refresh: 2; url=update.php");
-                die("Password must be at least 5 characters long!");
-            }
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $updateQuery .= ", password = '$hashedPassword'";
         }
@@ -87,19 +86,15 @@
 
         if (mysqli_query($connection, $updateQuery)) {
             echo "Updated Successfully!";
-            if (isset($_SESSION['user'])) {
-                header("Location: ../home.php");
-            } elseif (isset($_SESSION['admin'])) {
-                header("Location: ../dashboard.php");
-            } else {
-                header("Location: login.php");
-            }
+            header("Refresh: 2; url=".$redirectUrl);
             exit;
         } else {
             echo "Error: " . mysqli_error($connection);
         }
     }
-    mysqli_close($connection);
+}
+
+mysqli_close($connection);
 ?>
 
 
@@ -122,16 +117,25 @@
         <form action="update.php?id=<?= $userId ?>" method="post" enctype="multipart/form-data">
 
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="<?= $user["username"] ?>">
+            <label for="username" class="form-label">Username</label>
+    <input type="text" class="form-control" id="username" name="username" value="<?= $user["username"] ?>">
+    <?php if (!empty($errorUsername)): ?>
+        <div class="alert alert-danger mt-2"><?= $errorUsername ?></div>
+    <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="<?= $user["email"] ?>">
+                <?php if (!empty($errorEmail)): ?>
+                    <div class="alert alert-danger mt-2"><?= $errorEmail ?></div>
+                    <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">password:</label>
+            <label for="password" class="form-label">Password:</label>
                 <input type="password" class="form-control" id="password" name="password">
+                <?php if (!empty($errorPassword)): ?>
+                    <div class="alert alert-danger mt-2"><?= $errorPassword ?></div>
+                <?php endif; ?>
             </div>
             <div class="mb-3">
                     <label for="pictures" class="form-label">Profile picture</label>
@@ -140,6 +144,21 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
+    <script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        var alerts = document.querySelectorAll('.alert');
+
+        
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 2000);
+        });
+    });
+</script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

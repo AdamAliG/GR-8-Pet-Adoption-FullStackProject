@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
 
     if($connection->query($query)) {
         echo "Pet added successfully!";
-        header("Location: ../dashboard.php");
+        header("Refresh: 2; url=../dashboard.php");
 
     } else {
         echo "Error adding pet!";
