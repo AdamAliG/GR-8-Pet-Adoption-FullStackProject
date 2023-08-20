@@ -56,8 +56,8 @@ if (isset($_GET['status'])) {
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
                         <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
-                        <a href='pet_crud/edit_pet.php?id={$row["id"]}'>Edit</a>
-                        <a href='pet_crud/delete_pet.php?id={$row["id"]}'>Delete</a>
+                        <a href='pet_crud/edit_pet.php?id={$row["id"]}' class='btn btn-info'>Edit</a>
+                        <a href='pet_crud/delete_pet.php?id={$row["id"]}' class='btn btn-info'>Delete</a>
                     </div>
                 </div>
             </div>";

@@ -124,7 +124,7 @@ if (isset($_GET['id'])) {
     <label for="size" class="form-label">size:</label>
     <input type="text" name="size" class="form-control custom-input-width" value="<?= $pet['size'] ?>">
 
-    <input type="submit" class="btn btn-primary" name="update" value="Update">
+    <input type="submit" class="btn btn-info mt-5" name="update" value="Update">
 </form>  
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
