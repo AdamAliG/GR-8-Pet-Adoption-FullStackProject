@@ -25,6 +25,7 @@
 
     $username  = $email = $password = "";
     $usernameError = $emailError = $passError = "";
+    $userRole = '';
 
     if(isset($_POST["sign-up"])){
         $username = cleanInputs($_POST["username"]); 
@@ -81,12 +82,14 @@
                 $roleResult = mysqli_query($connection, $roleQuery);
                 $user = mysqli_fetch_assoc($roleResult);
             
+                $userRole = $user['role'];
+
                 if ($user['role'] == 'admin') {
                     $_SESSION["admin"] = $last_id;
-                    $welcomeMsg = "Welcome Admin!";
+                    $welcomeMsg = "Welcome " . $username . " (Mr.Admin)!";
                 } else {
                     $_SESSION["user"] = $last_id;
-                    $welcomeMsg = "Welcome User!";
+                    $welcomeMsg = "Welcome " . $username . "!";
                 }
             }
             
@@ -101,6 +104,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sign Up</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="../styles.css">
         <style>
             .welcome-message {
                 opacity: 0;
@@ -114,7 +118,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="text-center">Sign Up</h1>
+        <h1 class="text-center" id="signup-header">Sign Up</h1>
             <div id="form-container">
             <form method="post" autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3 mt-3">
@@ -145,23 +149,26 @@
 
         <script>
             if (document.querySelector('.welcome-message').textContent !== '') {
-                document.getElementById('form-container').style.opacity = '0';
-                setTimeout(() => {
-                    document.querySelector('.welcome-message').style.opacity = '1';
-                }, 100); 
+            document.getElementById('form-container').style.opacity = '0';
+            document.getElementById('signup-header').style.opacity = '0';
+    
+    setTimeout(() => {
+        document.querySelector('.welcome-message').style.opacity = '1';
+    }, 100); 
 
-                setTimeout(() => {
-                    document.querySelector('.welcome-message').style.opacity = '0';
-                }, 2000); 
+    setTimeout(() => {
+        document.querySelector('.welcome-message').style.opacity = '0';
+    }, 2000); 
 
-                setTimeout(() => {
-                    if (document.querySelector('.welcome-message').textContent.includes('Admin')) {
-                        window.location.href = "../dashboard.php";
-                    } else {
-                        window.location.href = "../home.php";
-                    }
-                }, 3000); 
-            }
+    setTimeout(() => {
+        if (document.querySelector('.welcome-message').textContent.includes('Admin')) {
+            window.location.href = "../dashboard.php";
+        } else {
+            window.location.href = "../home.php";
+        }
+    }, 3000); 
+}
+
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
