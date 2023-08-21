@@ -14,6 +14,12 @@ if (!isset($_SESSION['user'])) {
 
 require_once 'db_connect.php';
 require_once "public/functions.php";
+
+$userId = intval($_SESSION["user"]); 
+$sql = "SELECT * FROM users WHERE id = $userId";
+$result = mysqli_query($connection, $sql);
+$userRow = mysqli_fetch_assoc($result);
+
 if (isset($_GET['id']) && isset($_GET['msg'])) {
     if ($_GET['msg']=='read') {
         $sqlupdate = "UPDATE `messages` set `read_flag`='true' where id=".$_GET['id'];
@@ -71,6 +77,9 @@ $layer.="</div>";
     <link rel="stylesheet" href="Public/components/css/main.css">
 </head>
 <body>
+<?php
+require_once "navbar.php";
+?> 
     <?=$layer ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
