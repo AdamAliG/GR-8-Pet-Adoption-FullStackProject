@@ -98,13 +98,13 @@ if (isset($_GET['status'])) {
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Adoption Stories</a>
+                    <a class="nav-link" href="adoption_stories/adoption_stories.php">Adoption Stories</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Pet of the Day</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Calendar for Volunteers</a>
+                    <a class="nav-link" href="calendar/calendar.php">Calendar for Volunteers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
@@ -117,7 +117,7 @@ if (isset($_GET['status'])) {
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="../public/images/user_images/<?= $adminRow["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="public/images/user_images/<?= $adminRow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $adminRow["id"] ?>">Update</a>
