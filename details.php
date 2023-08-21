@@ -154,7 +154,7 @@
                     <h1 class="text-center"><?= $row["name"] ?>'s Details</h1>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><img src="pictures/<?= $row["image"] ?>" width="200"></p>
+                    <p class="card-text"><img src="public/images/pet_images/<?= $row["image"] ?>" width="400"></p>
                     <p class="card-text"><strong>Species:</strong> <?= $row["species"] ?></p>
                     <p class="card-text"><strong>Description:</strong> <?= $row["description"] ?></p>
                     <p class="card-text"><strong>Location:</strong> <?= $row["location"] ?></p>

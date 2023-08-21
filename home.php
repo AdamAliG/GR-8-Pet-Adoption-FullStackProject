@@ -13,8 +13,6 @@ if(isset($_SESSION["admin"]) && !isset($_SESSION["user"])){
 
 require_once "db_connect.php";
 
-
-
 if (isset($_SESSION["user"])) {
     $userId = intval($_SESSION["user"]); 
     $sql = "SELECT * FROM users WHERE id = $userId";
@@ -116,7 +114,7 @@ $cards = "";
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="pictures/<?= $row["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="public/images/user_images/<?=$row["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $row["id"] ?>">Update</a>
