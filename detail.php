@@ -10,7 +10,7 @@ to put a request to database
     // $_SESSION['user']=2;
     // $_SESSION['adm']=3;
      if (!isset($_SESSION['user'])) {
-            header( "Location: login.php" );
+            header( "Location: user_auth/login.php" );
      } else if (isset($_SESSION['user'])) {
          $user_id = $_SESSION['user'];
      } 
@@ -19,6 +19,11 @@ to put a request to database
     require_once "db_connect.php"; 
     require_once "file_Upload.php"; 
     require_once "public/functions.php";
+
+    $userId = intval($_SESSION["user"]); 
+    $sql = "SELECT * FROM users WHERE id = $userId";
+    $result = mysqli_query($connection, $sql);
+    $userRow = mysqli_fetch_assoc($result);
 
     $pet_id = 0;
     $adoption = False;
@@ -132,9 +137,9 @@ to put a request to database
     <link rel="stylesheet" href="public/components/css/main.css">
 </head>
 <body>
-    <?php
-        include  "public/components/navbar.php"; 
-    ?>
+<?php
+require_once "navbar.php";
+?>
     <?= $layout ?>
     <div class="container ">
     <div class="grid-container-2 ">

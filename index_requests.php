@@ -103,6 +103,9 @@ if (isset($sql)) {
     <link rel="stylesheet" href="Public/components/css/main.css">
 </head>
 <body>
+<?php
+require_once "navbar.php";
+?>
     <div class="container">
     <div>
     <a href='index_requests.php' class='btn btn-success'>All Requests</a>

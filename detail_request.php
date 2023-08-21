@@ -318,9 +318,9 @@ if (!isset($_SESSION['admin'])) {
     <link rel="stylesheet" href="public/components/css/main.css">
 </head>
 <body>
-    <?php
-        include  "public/components/navbar.php"; 
-    ?>
+<?php
+require_once "navbar.php";
+?>
     <?= $layout ?>
     <div class="container ">
     
