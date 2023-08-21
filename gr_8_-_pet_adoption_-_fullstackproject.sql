@@ -62,6 +62,28 @@ CREATE TABLE `adoption_stories` (
   `timestamp` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `adoption_stories`
+--
+
+INSERT INTO `adoption_stories` (`id`, `user_id`, `story`, `photo`, `timestamp`) VALUES
+(2, NULL, 'Such wow! Much heartwarm! Me, Doge, was alone at shelter, but then, hooman came! Eyes met, tails wagged. Adopted! Many cuddles, treats, park runs. Hooman and Doge, bestest pals forever. Adoption, amaze! Love, much grow! Happily ever after, yasss! 🐾❤️', '64e3102078266.png', '2023-08-18 14:34:30'),
+(3, NULL, 'In a bustling city, a blind pigeon named Lumi found hope in an unexpected place. A compassionate woman adopted Lumi, providing a safe haven. With patient care, Lumi navigated life through sounds and scents, inspiring everyone with resilience. In their journey together, they discovered a world illuminated by love.', '64e30fce4e602.png', '2023-08-20 19:16:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `timeslot` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +99,8 @@ CREATE TABLE `foster_to_adopt` (
   `status` enum('in_progress','completed','cancelled') DEFAULT NULL,
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Dumping data for table `foster_to_adopt`
@@ -210,6 +234,12 @@ ALTER TABLE `adoption_applications`
 ALTER TABLE `adoption_stories`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+  
+--
+-- Indexes for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `foster_to_adopt`
@@ -270,6 +300,12 @@ ALTER TABLE `adoption_applications`
 --
 ALTER TABLE `adoption_stories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+--
+-- AUTO_INCREMENT for table `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `foster_to_adopt`
