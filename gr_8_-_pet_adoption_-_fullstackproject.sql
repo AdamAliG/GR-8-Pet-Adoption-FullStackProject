@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2023 at 01:14 PM
+-- Generation Time: Aug 21, 2023 at 01:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -96,6 +96,7 @@ CREATE TABLE `messages` (
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL,
   `content` text DEFAULT NULL,
+  `read` enum('false','true') NOT NULL DEFAULT 'false',
   `timestamp` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -103,8 +104,8 @@ CREATE TABLE `messages` (
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `content`, `timestamp`) VALUES
-(2, 9, 11, '<a href=\'pet_crud/details?id=9\'>Cesar</a> is in Fost-to-Adopt process by you! have a great time with eachother!', '2023-08-21 13:02:17');
+INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `content`, `read`, `timestamp`) VALUES
+(2, 9, 11, '<a href=\'pet_crud/details.php?id=9\'>Cesar</a> is in Fost-to-Adopt process by you! have a great time with eachother!', 'true', '2023-08-21 13:02:17');
 
 -- --------------------------------------------------------
 

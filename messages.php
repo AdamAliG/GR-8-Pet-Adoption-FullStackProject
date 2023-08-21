@@ -14,12 +14,21 @@ if (!isset($_SESSION['user'])) {
 
 require_once 'db_connect.php';
 require_once "public/functions.php";
+if (isset($_GET['id']) && isset($_GET['msg'])) {
+    if ($_GET['msg']=='read') {
+        $sqlupdate = "UPDATE `messages` set `read`='true' where id=".$_GET['id'];
+        mysqli_query($connection ,$sqlupdate);
+    }
+    
+} 
+
+
 
 $sql1 = "SELECT * FROM messages where receiver_id=".$_SESSION['user'];
 $result = mysqli_query($connection ,$sql1);
 
 $layer="";
-$layer.="<div class='d-flex justify-content-center'><div class='grid-container-msg'>";
+$layer.="<div class='grid-container-msg'>";
 
 if(mysqli_num_rows($result) > 0){
 
@@ -27,18 +36,23 @@ if(mysqli_num_rows($result) > 0){
 
         $layer.="
             <div class='card' style='width: 26rem;'>
-            <div class='card-body'>
-            <h5 class='card-title'>Message Code: {$rows['id']}</h5>
-            <p class='card-text'>{$rows['content']}
-            </p>
             
-            <a href='detail.php?detail={$rows['id']}' class='btn btn-primary'>i read message!</a>";
+            <div class='card-body'>
+            <h5 class='card-title'>Message Code: ".substr(hash('md5',$rows['id']),0,6)."</h5>
+            <p class='card-text'>{$rows['content']}
+            </p>";
+            if ($rows['read'] == 'false') {
+                $layer.="<a href='messages.php?id={$rows['id']}&msg=read' class='btn btn-primary'>i read message!</a>";
+            }
+            else {
+                $layer.="<h5 class='text-success'>message has read!</h5>";
+            }
         $layer.="</div>
             </div>";
     }
 }
 
-$layer.="</div></div>";
+$layer.="</div>";
 
 ?>
 <!DOCTYPE html>
