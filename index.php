@@ -9,7 +9,7 @@ it has detail, and adoption request for each case
 session_start();
 //$_SESSION['user']= 3;
 if (!isset($_SESSION['user'])) {
-    header( "Location: login.php");
+    header( "Location: user_auth/login.php");
 } 
 
 require_once 'db_connect.php';
