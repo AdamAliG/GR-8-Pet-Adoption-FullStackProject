@@ -16,6 +16,8 @@
     $usersql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
     $result = mysqli_query($connection, $usersql);
     $userrow = mysqli_fetch_assoc($result);
+    
+    
 ?>
 
 <!DOCTYPE html>
@@ -115,27 +117,30 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="Home.php">Home</a>
+                    <a class="nav-link" href="../Home.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Adoption Stories</a>
+                    <a class="nav-link" href="../adoption_stories/adoption_stories.php">Adoption Stories</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Pet of the Day</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Calendar for Volunteers</a>
+                    <a class="nav-link" href="../calendar/calendar.php">Calendar for Volunteers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../matchmaker/matchmaker.html">Matchmaker</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-            <img src="public/images/user_images/<?= $userrow["pictures"] ?>" alt="user pic" width="35" height="30">
+            <img src="../public/images/user_images/<?= $userrow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item me-3">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userrow["id"] ?>">Edit</a>
+                        <a class="nav-link font-weight-bold" href="../user_auth/update.php?id=<?= $userrow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
+                        <a class="nav-link font-weight-bold" href="../user_auth/logout.php?logout">Logout</a>
                     </li>
                 </ul>
         </div>
@@ -152,10 +157,11 @@
                     <h1 class="text-center"><?= $row["name"] ?>'s Details</h1>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><img src="public/images/pet_images/<?= $row["image"] ?>" width="400"></p>
+                    <p class="card-text"><img src="../public/images/pet_images/<?= $row["image"] ?>" width="400"></p>
                     <p class="card-text"><strong>Species:</strong> <?= $row["species"] ?></p>
                     <p class="card-text"><strong>Description:</strong> <?= $row["description"] ?></p>
                     <p class="card-text"><strong>Location:</strong> <?= $row["location"] ?></p>
+                    <p class="card-text"><strong>Added by:</strong> <?= $row["added_by"] ?></p>
                     <p class="card-text"><strong>Breed:</strong> <?= $row["breed"] ?></p>
                     <p class="card-text"><strong>Status:</strong> <?= $row["status"] ?></p>
                     <p class="card-text"><strong>Age:</strong> <?= $row["age"] ?></p>
