@@ -171,6 +171,7 @@ to put a request to database
         <div class="mb-3 d-flex justify-content-center  ">
             <img src="public/images/pet_images/<?=$picture ?>" class="detail_pic" >
         </div>
+        <div class="mb-3 ">
     </div>
     </div>
     </div>
