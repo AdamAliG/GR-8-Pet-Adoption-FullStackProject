@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $pets = [
             "dog" => [
-                "question1" => ["house"],
+                "question1" => ["house", "apartment"],
                 "question2" => ["lots"],
                 "question3" => ["very_active", "moderately_active"],
                 "question4" => ["yes", "no"],
@@ -28,21 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "bird" => [
                 "question1" => ["house", "apartment"],
                 "question2" => ["lots", "moderate", "little"],
-                "question3" => ["not_very_active"],
+                "question3" => ["very_active", "moderately_active", "not_very_active"],
                 "question4" => ["no"],
-                "question5" => ["okay_with_grooming", "prefer_low_maintenance"]
+                "question5" => ["enjoy_grooming", "okay_with_grooming", "prefer_low_maintenance"]
             ],
             "hamster" => [
                 "question1" => ["house", "apartment"],
-                "question2" => ["moderate", "little"],
-                "question3" => ["not_very_active"],
-                "question4" => ["yes"],
+                "question2" => ["lots", "moderate", "little"],
+                "question3" => ["very_active", "moderately_active", "not_very_active"],
+                "question4" => ["yes", "no"],
                 "question5" => ["prefer_low_maintenance"]
             ],
             "fish" => [
                 "question1" => ["house", "apartment"],
-                "question2" => ["little"],
-                "question3" => ["not_very_active"],
+                "question2" => ["lots", "moderate", "little"],
+                "question3" => ["very_active", "moderately_active", "not_very_active"],
                 "question4" => ["yes", "no"],
                 "question5" => ["prefer_low_maintenance"]
             ],
