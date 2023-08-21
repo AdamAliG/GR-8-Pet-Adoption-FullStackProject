@@ -68,7 +68,7 @@ $cards = "";
         $cards = "<p>No results found</p>";
     }
     
-    
+
 
     mysqli_close($connection);
 
