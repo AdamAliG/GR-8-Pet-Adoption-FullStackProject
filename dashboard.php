@@ -123,6 +123,9 @@ if (isset($_GET['status'])) {
                         <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $adminRow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link font-weight-bold" href="user_crud/users.php?users">See Users</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
                     </li>
                 </ul>

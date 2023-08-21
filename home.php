@@ -115,20 +115,24 @@ $cards = "";
                     <a class="nav-link" href="messages.php">Messages</a>
                 </li>
                 <?php 
+/*
                 $sql = "SELECT read_flag FROM messages where read_flag='false' and receiver_id=".$_SESSION['user'];
 
                 $result = retreive_form_database($connection ,$sql);
 
                 if ($result) {
-                ?>
-                <li class="nav-item">
+*/
+?>
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="messages.php">
                         <img src="public/images/web_images/notification.png" alt="" width="30" height="30">
                     </a>
-                </li>
-                <?php 
+                </li> -->
+<?php 
+/*
                 }
-                ?>
+*/
+?>
             </ul>
             
             <ul class="navbar-nav ms-auto">
