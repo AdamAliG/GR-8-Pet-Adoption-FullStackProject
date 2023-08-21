@@ -17,7 +17,7 @@ if (isset($_SESSION["user"])) {
     $userId = intval($_SESSION["user"]); 
     $sql = "SELECT * FROM users WHERE id = $userId";
     $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $userRow = mysqli_fetch_assoc($result);
     
 }
 
@@ -53,11 +53,11 @@ $cards = "";
                     <div class='card-body'>
                         <h5 class='card-title'>{$row["name"]}</h5>
                         
-                    <img src='public/images/pet_images/{$row["image"]}' class='card-img-top' alt='...'>
+                        <img src='public/images/pet_images/{$row["image"]}' class='card-img-top' alt='...'>
                     
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
-                        <a href='details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
+                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
                     </div>
                 </div>
             </div>";
@@ -114,10 +114,14 @@ $cards = "";
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
+<<<<<<< HEAD
                 <img src="public/images/user_images/<?=$row["pictures"] ?>" alt="user pic" width="35" height="30">
+=======
+                <img src="public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
+>>>>>>> cc45def954180f2f3a4edbb2ad832f687bec8e4b
             </a>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $row["id"] ?>">Update</a>
+                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
