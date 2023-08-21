@@ -20,6 +20,13 @@
     padding: 0px;
   }
 
+.grid-container-msg {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 30px;
+    padding: 0px;
+  }
+
 .grid-container-2 {
     display: grid;
     grid-template-columns: auto 600px;

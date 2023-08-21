@@ -16,8 +16,6 @@
     $usersql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
     $result = mysqli_query($connection, $usersql);
     $userrow = mysqli_fetch_assoc($result);
-    
-    
 ?>
 
 <!DOCTYPE html>
@@ -158,7 +156,6 @@
                     <p class="card-text"><strong>Species:</strong> <?= $row["species"] ?></p>
                     <p class="card-text"><strong>Description:</strong> <?= $row["description"] ?></p>
                     <p class="card-text"><strong>Location:</strong> <?= $row["location"] ?></p>
-                    <p class="card-text"><strong>Added by:</strong> <?= $row["added_by"] ?></p>
                     <p class="card-text"><strong>Breed:</strong> <?= $row["breed"] ?></p>
                     <p class="card-text"><strong>Status:</strong> <?= $row["status"] ?></p>
                     <p class="card-text"><strong>Age:</strong> <?= $row["age"] ?></p>

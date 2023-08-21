@@ -4,13 +4,11 @@ This page is a admin page, it needs sign in ($_SESSION['adm'])
 it show all details about adoption request.
 in this page can see and change the status of the request
 */
-
 session_start();
 // $_SESSION['adm']= 4;
 if (!isset($_SESSION['admin'])) {
-    header( "Location: user_crud/login.php" );
+    header( "Location: user_auth/login.php" );
 } 
-    
 
     require_once "db_connect.php"; 
     require_once "file_Upload.php"; 
@@ -31,9 +29,21 @@ if (!isset($_SESSION['admin'])) {
 
         $sqlfost = "INSERT INTO `foster_to_adopt`(`user_id`, `pet_id`, `status`, `start_date`, `end_date`, `description`) VALUES ($user_id_req,$pet_id,'in_progress','$start_date','$end_date','$description')";
 
+        $sqlpet="select name from pets where id =$pet_id";
+        $pet_name=retreive_form_database($connection ,$sqlpet);
 
+        $sender=$_SESSION['admin'];
+        $msg="<a href='pet_crud/details?id=$pet_id'>".$pet_name['name']."</a> is in Fost-to-Adopt process by you! have a great time with eachother!";
+        $msg=addslashes($msg);
 
-        if (mysqli_query($connection,$sqlfost)) {
+        // echo $msg;
+        // exit();
+
+        $sqlmsg = "INSERT INTO `messages` (`sender_id`, `receiver_id`, `content`, `timestamp`) VALUES ($sender,$user_id_req,'$msg', now())";
+
+        
+
+        if (mysqli_query($connection,$sqlfost)  && mysqli_query($connection,$sqlmsg)) {
 
             $layout .= "<div class='alert alert-success' role='alert'>
             Fost has beeb done!

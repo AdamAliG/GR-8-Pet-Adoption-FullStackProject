@@ -68,7 +68,7 @@ $cards = "";
         $cards = "<p>No results found</p>";
     }
     
-
+    
 
     mysqli_close($connection);
 
@@ -111,6 +111,9 @@ $cards = "";
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="messages.php">Messages</a>
                 </li>
             </ul>
             
