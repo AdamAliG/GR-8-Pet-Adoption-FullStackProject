@@ -5,7 +5,7 @@ it show all adoption requets from users with their status.
 in this page you can filter requests depend on status
 */
 session_start();
-//$_SESSION['admin']= 9;
+// $_SESSION['admin']= 9;
 if (!isset($_SESSION['admin'])) {
     header( "Location: user_auth/login.php" );
 } 

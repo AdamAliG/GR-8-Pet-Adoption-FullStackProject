@@ -33,7 +33,7 @@ if (!isset($_SESSION['admin'])) {
         $pet_name=retreive_form_database($connection ,$sqlpet);
 
         $sender=$_SESSION['admin'];
-        $msg="<a href='pet_crud/details.php?id=$pet_id'>".$pet_name['name']."</a> is in Fost-to-Adopt process by you! have a great time with eachother!";
+        $msg="<a href='details.php?detail=$pet_id'>".$pet_name['name']."</a> is in Fost-to-Adopt process by you! have a great time with eachother!";
         $msg=addslashes($msg);
 
         // echo $msg;

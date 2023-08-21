@@ -16,7 +16,7 @@ require_once 'db_connect.php';
 require_once "public/functions.php";
 if (isset($_GET['id']) && isset($_GET['msg'])) {
     if ($_GET['msg']=='read') {
-        $sqlupdate = "UPDATE `messages` set `read`='true' where id=".$_GET['id'];
+        $sqlupdate = "UPDATE `messages` set `read_flag`='true' where id=".$_GET['id'];
         mysqli_query($connection ,$sqlupdate);
     }
     
@@ -24,11 +24,11 @@ if (isset($_GET['id']) && isset($_GET['msg'])) {
 
 
 
-$sql1 = "SELECT * FROM messages where receiver_id=".$_SESSION['user'];
+$sql1 = "SELECT * FROM messages where receiver_id=".$_SESSION['user']." order by id desc";
 $result = mysqli_query($connection ,$sql1);
 
 $layer="";
-$layer.="<div class='grid-container-msg'>";
+$layer.="<div>";
 
 if(mysqli_num_rows($result) > 0){
 
@@ -37,11 +37,17 @@ if(mysqli_num_rows($result) > 0){
         $layer.="
             <div class='card' style='width: 26rem;'>
             
-            <div class='card-body'>
-            <h5 class='card-title'>Message Code: ".substr(hash('md5',$rows['id']),0,6)."</h5>
-            <p class='card-text'>{$rows['content']}
+            <div class='card-body'>";
+            if ($rows['read_flag'] == 'false') {
+                $layer.="<img src='public/images/web_images/notification.png'  width='30' height='30'>";
+            }
+            $layer.="<h5 class='card-title'>Message Code: ".substr(hash('md5',$rows['id']),0,6)."</h5>
+            <p class='card-text'>
+            {$rows['timestamp']}
+            <br>
+            {$rows['content']}
             </p>";
-            if ($rows['read'] == 'false') {
+            if ($rows['read_flag'] == 'false') {
                 $layer.="<a href='messages.php?id={$rows['id']}&msg=read' class='btn btn-primary'>i read message!</a>";
             }
             else {

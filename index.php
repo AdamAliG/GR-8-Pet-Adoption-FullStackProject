@@ -12,6 +12,8 @@ if (!isset($_SESSION['user'])) {
     header( "Location: user_auth/login.php");
 } 
 
+echo $_SESSION['user'];
+
 require_once 'db_connect.php';
 require_once "public/functions.php";
 
@@ -25,8 +27,19 @@ if(mysqli_num_rows($result) > 0){
 
     while($rows = mysqli_fetch_assoc($result)){
 
-        $sql2="select id,status from adoption_applications where pet_id = {$rows['id']} and user_id = {$_SESSION['user']}";
+        $flag=false;
+
+        $sql2="select id,status from adoption_applications where status !='approved' and pet_id = {$rows['id']} and user_id != {$_SESSION['user']} and pet_id in (select pet_id from foster_to_adopt where pet_id = {$rows['id']} and status='in_progress' and user_id != {$_SESSION['user']} )";
         $rows2=retreive_form_database($connection ,$sql2);
+        // if ($rows['id']==9) {
+        //     echo isset($rows2);
+        //     exit();
+        // } 
+        $sql3="select id,status from adoption_applications where pet_id = {$rows['id']} and user_id = {$_SESSION['user']} ";
+        $rows3=retreive_form_database($connection ,$sql3);
+
+        $sql4="select * from foster_to_adopt where pet_id = {$rows['id']} and user_id = {$_SESSION['user']}  and status='in_progress' ";
+        $rows4=retreive_form_database($connection ,$sql4);
 
         $layer.="
             <div class='card' style='width: 20rem;'>
@@ -35,30 +48,35 @@ if(mysqli_num_rows($result) > 0){
             <h5 class='card-title'>{$rows['name']}</h5>
             <p class='card-text'>Species : {$rows['species']}";
 
-            if ($rows2) {
-
-                switch ($rows2['status']) {
+            if (($rows3) && (!$rows4)) {
+                $flag=true;
+                switch ($rows3['status']) {
                     case "rejected":
-                        $layer.="<br><span class='text-danger'>your request has rejected!</span>";
+                        $layer.="<br><span class='text-danger'>your request for {$rows['name']} has rejected!</span>";
                         break;
                     case "pending":
-                        $layer.="<br><span class='text-success'>your request is in progress!</span>";
+                        $layer.="<br><span class='text-success'>your request for {$rows['name']} is in progress!</span>";
                         break;
                     case "approved":
-                        $layer.="<br><span class='text-primary'>you have adopted this pet!:)</span>";
+                        $layer.="<br><span class='text-primary'>you have adopted {$rows['name']}!:)</span>";
                         break;
                 }
-
             }
+            if ($rows4) {
+                $layer.="<br><span class='text-success'>in Foster-to-Adopt process by you! have a good time!:)</span>";
+            }
+            if ($rows2) {
+                $layer.="<br><span class='text-primary'>in Foster-to-Adopt process by another applicant!(wait a little!:))</span>";
+            } 
             $layer.="<br>
             Breed : {$rows['breed']}
             <br>
             age : {$rows['age']}
             </p>
             <a href='detail.php?detail={$rows['id']}' class='btn btn-primary'>Details</a>";
-            if (!($rows['age'] == 'adopted') && !($rows2) ) {
+            if (!$rows2 && !$rows4 && !$flag) {
                 $layer.="<a href='detail.php?detail={$rows['id']}&adoption=yes' class='btn btn-success'>Adopt Me!</a>";
-            }
+            } 
         $layer.="</div>
             </div>";
     }

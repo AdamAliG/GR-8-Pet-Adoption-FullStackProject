@@ -49,7 +49,17 @@ to put a request to database
         $sql1 = "INSERT INTO `adoption_applications`(`user_id`, `pet_id`, `application_date`) VALUES ($user_id,$pet_id,NOW())";
         $sql2 = "UPDATE `pets` SET `status`='pending' WHERE id =".$pet_id;
 
-        if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) ) {
+        $sqlpet="select name from pets where id =$pet_id";
+        $pet_name=retreive_form_database($connection ,$sqlpet);
+
+        $sender=9;
+        $receiver_id=$_SESSION['user'];
+        $msg="You have sent an adoption request for <a href='detail.php?detail=$pet_id'>".$pet_name['name']."</a> wait for our contact!";
+        $msg=addslashes($msg);
+
+        $sqlmsg = "INSERT INTO `messages` (`sender_id`, `receiver_id`, `content`, `timestamp`) VALUES ($sender,$receiver_id,'$msg', now())";
+
+        if (mysqli_query($connection, $sql1) && mysqli_query($connection, $sql2) && mysqli_query($connection, $sqlmsg) ) {
 
             $layout .= "<div class='alert alert-success' role='alert'>
             Your request has registered. Pls wait for contact from shelter! :)
