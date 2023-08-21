@@ -105,7 +105,7 @@
     </style>
 </head>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 <body>
 <nav class="navbar navbar-expand-lg navbar-light ">
     <div class="container">
@@ -130,6 +130,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../matchmaker/matchmaker.html">Matchmaker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../messages.php">Messages</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
