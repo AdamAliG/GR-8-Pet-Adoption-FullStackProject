@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2023 at 01:46 PM
+-- Generation Time: Aug 21, 2023 at 08:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,7 +45,8 @@ INSERT INTO `adoption_applications` (`id`, `pet_id`, `user_id`, `details`, `appl
 (1, 9, 8, NULL, '2023-01-10', 'pending', '2023-01-10'),
 (2, 10, 10, NULL, '2023-01-10', 'pending', '2023-01-10'),
 (3, 8, 10, NULL, '2023-01-10', 'pending', '2023-01-10'),
-(4, 9, 11, NULL, '2023-08-21', 'pending', '2023-08-21');
+(4, 9, 11, NULL, '2023-08-21', 'pending', '2023-08-21'),
+(10, 10, 11, NULL, '2023-08-21', 'pending', '2023-08-21');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ CREATE TABLE `foster_to_adopt` (
 
 INSERT INTO `foster_to_adopt` (`id`, `user_id`, `pet_id`, `start_date`, `end_date`, `status`, `description`) VALUES
 (1, 10, 8, '2023-08-24', '2023-09-06', 'in_progress', 'Description'),
-(6, 11, 9, '2023-08-24', '2023-08-31', 'in_progress', 'Descrition');
+(7, 11, 10, '2023-08-24', '2023-09-08', 'in_progress', 'Description');
 
 -- --------------------------------------------------------
 
@@ -96,7 +97,7 @@ CREATE TABLE `messages` (
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL,
   `content` text DEFAULT NULL,
-  `read` enum('false','true') NOT NULL DEFAULT 'false',
+  `read_flag` enum('false','true') NOT NULL DEFAULT 'false',
   `timestamp` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -104,8 +105,9 @@ CREATE TABLE `messages` (
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `content`, `read`, `timestamp`) VALUES
-(2, 9, 11, '<a href=\'pet_crud/details.php?id=9\'>Cesar</a> is in Fost-to-Adopt process by you! have a great time with eachother!', 'true', '2023-08-21 13:02:17');
+INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `content`, `read_flag`, `timestamp`) VALUES
+(8, 9, 11, 'You have sent an adoption request for <a href=\'detail.php?detail=10\'>Suzi</a> wait for our contact!', 'true', '2023-08-21 15:19:11'),
+(9, 9, 11, '<a href=\'details.php?detail=10\'>Suzi</a> is in Fost-to-Adopt process by you! have a great time with eachother!', 'true', '2023-08-21 15:25:24');
 
 -- --------------------------------------------------------
 
@@ -132,9 +134,9 @@ CREATE TABLE `pets` (
 --
 
 INSERT INTO `pets` (`id`, `name`, `species`, `description`, `location`, `added_by`, `breed`, `status`, `age`, `image`, `size`) VALUES
-(8, 'Aki', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Austria -Vienna', 9, 'Akita', 'not adopted', 7, 'avatar.jpg', 'big'),
-(9, 'Cesar', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Graz - Austria', 9, 'Shepherd', 'not adopted', 4, 'avatar.jpg', 'medium'),
-(10, 'Suzi', 'cat', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Berlin - Germany', 9, 'scotish', 'not adopted', 3, 'avatar.jpg', 'small');
+(8, 'Aki', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Austria -Vienna', 9, 'Akita', 'pending', 7, 'avatar.jpg', 'big'),
+(9, 'Cesar', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Graz - Austria', 9, 'Shepherd', 'pending', 4, 'avatar.jpg', 'medium'),
+(10, 'Suzi', 'cat', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Berlin - Germany', 9, 'scotish', 'pending', 3, 'avatar.jpg', 'small');
 
 -- --------------------------------------------------------
 
@@ -222,7 +224,6 @@ ALTER TABLE `foster_to_adopt`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `sender_id` (`sender_id`),
   ADD KEY `receiver_id` (`receiver_id`);
 
 --
@@ -262,7 +263,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `adoption_stories`
@@ -274,13 +275,13 @@ ALTER TABLE `adoption_stories`
 -- AUTO_INCREMENT for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pets`
