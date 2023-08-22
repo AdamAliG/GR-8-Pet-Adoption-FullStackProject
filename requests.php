@@ -36,14 +36,14 @@
                 where 
                 adoption_applications.status = '$status'
                 group BY
-                adoption_applications.pet_id , adoption_applications.user_id ";
+                adoption_applications.pet_id , adoption_applications.user_id order by adoption_applications.id desc ";
     } else {
         $sql = "SELECT *,pets.image as pimage,users.pictures as uimage,adoption_applications.status as status_req
                 FROM adoption_applications 
                 inner join users on (user_id = users.id)
                 inner join pets on (pet_id = pets.id)
                 group BY
-                adoption_applications.pet_id , adoption_applications.user_id ";
+                adoption_applications.pet_id , adoption_applications.user_id  order by adoption_applications.id desc  ";
     }
 
     if (isset($sql)) {
@@ -164,8 +164,8 @@
 require_once "navbar_admin.php";
 ?>
 <div class="container mt-5">
-    <h1 class="mt-5">Pet List</h1>
-    <form action="" method="get" class="mb-3">
+    <h1 class="mt-5">Adoption Requests List</h1>
+    <!--<form action="" method="get" class="mb-3">
         <div class="accordion accordion-flush" id="filterAccordion">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="filterHeader">
@@ -212,7 +212,7 @@ require_once "navbar_admin.php";
     
     <div class="input-group input-group-sm mb-3">
         <input type="text" id="searchInput" class="form-control" placeholder="Search by name...">
-    </div>
+    </div>-->
     
     
         <?= $layer ?>

@@ -14,6 +14,14 @@ if (!isset($_SESSION['admin'])) {
     require_once "file_Upload.php"; 
     require_once "public/functions.php";
 
+    if (isset($_SESSION["admin"])) {
+        $adminId = intval($_SESSION["admin"]); 
+        $sql = "SELECT * FROM users WHERE id = $adminId";
+        $result = mysqli_query($connection, $sql);
+        $adminRow = mysqli_fetch_assoc($result);
+
+    }
+
     $pet_id = 0;
     $user_id_req=0;
     $new_status="";
@@ -324,7 +332,7 @@ require_once "navbar_admin.php";
     <?= $layout ?>
     <div class="container ">
     
-    <a href="index_requests.php" class="btn btn-dark" >Back to requests page</a>
+    <a href="requests.php" class="btn btn-dark" >Back to requests page</a>
 
     <?php if ($status_g != 'approved')  { ?>
         <a href="detail_request.php?pet_id=<?=$pet_id?>&user_id_req=<?=$user_id_req?>&new_status=approved" class="btn btn-primary" onclick="return confirm('Are you sure?')">Change to Approved request</a>
