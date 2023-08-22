@@ -98,9 +98,9 @@ $cards = "";
                         } 
 
                         $cards.="<p class='card-text'>Location: {$row["location"]}</p>
-                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>";
+                        <a href='details.php?detail={$row["id"]}' class='btn btn-info'>Show Details</a>";
                         if (!$rows2 && !$rows4 && !$flag) {
-                            $cards.="<a href='detail.php?detail={$row['id']}&adoption=yes' class='btn btn-info'>Adopt Me!</a>";
+                            $cards.="<a href='details.php?detail={$row['id']}&adoption=yes' class='btn btn-info'>Adopt Me!</a>";
                         } 
                         $cards.="</div>
                 </div>
@@ -123,7 +123,7 @@ $cards = "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pet Adoption</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     
 </head>
@@ -188,7 +188,8 @@ require_once "navbar.php";
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 <script>
     const searchInput = document.getElementById('searchInput');
     const cardContainer = document.querySelector('.row-cols');

@@ -70,7 +70,7 @@ if(mysqli_num_rows($result) > 0){
                 $layer.="<br><span class='text-success'>in Foster-to-Adopt process by you! have a good time!:)</span>";
             }
             if ($rows2) {
-                $layer.="<br><span class='text-primary'>in Foster-to-Adopt process by another applicant!(wait a little!:))</span>";
+                $layer.="<br><span class='text-primary'>in Foster-to-Adopt process by another applicant!wait a little!:)</span>";
             } 
             $layer.="<br>
             Breed : {$rows['breed']}
