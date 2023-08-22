@@ -9,6 +9,7 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 require_once "../db_connect.php";
 require_once "../file_upload.php";
 
+
 $sql = "SELECT * FROM adoption_stories";
 $result = mysqli_query($connection, $sql);
 
@@ -45,30 +46,14 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../pictures/<?= $row["picture"] ?>" alt="user pic" width="30" height="24">
-            </a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../calendar/calendar.php">Book a meeting</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="add_adoption_story.php">Add a story</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">Show available Animals</a>
-                </li> -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="../logout.php?logout">Logout</a>
-                </li> -->
-            </ul>
-        </div>
-    </nav>
+<?php
+if (isset($_SESSION["user"])){ 
+require_once "../navbar_sub.php";
+}
+if (isset($_SESSION["admin"])){ 
+    require_once "../navbar_admin_sub.php";
+}
+?>
 
     <div class="container mt-5">
         <div class="row row-cols-lg-2 row-cols-md-1 row-cols-sm-1 row-cols-xs-1">

@@ -1,5 +1,5 @@
 <?php
-require_once "../db_connect.php";
+
 
 session_start();
 
@@ -7,9 +7,11 @@ session_start();
 //     header("Location: ../home.php");
 // }
 
-if (!isset($_SESSION["user"]) && !isset($_SESSION["adm"])) {
+if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
     header("Location: ../login.php");
 }
+
+require_once "../db_connect.php";
 
 $id = $_GET["id"];
 
@@ -31,24 +33,14 @@ $row = mysqli_fetch_assoc($result);
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="photo/<?= $row["photo"] ?>" alt="animal pic" width="30" height="24">
-            </a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adoption_stories.php">Show all stories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php?logout">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<?php
+if (isset($_SESSION["user"])){ 
+require_once "../navbar_sub.php";
+}
+if (isset($_SESSION["admin"])){ 
+    require_once "../navbar_admin_sub.php";
+}
+?>
     <div class="container mt-5">
         <div class="card" style="width: 50rem;">
             <div class="card-body">

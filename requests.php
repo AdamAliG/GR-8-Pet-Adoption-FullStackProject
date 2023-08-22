@@ -15,13 +15,7 @@
     require_once "public/functions.php";
    
     
-    if (isset($_SESSION["admin"])) {
-        $adminId = intval($_SESSION["admin"]); 
-        $sql = "SELECT * FROM users WHERE id = $adminId";
-        $result = mysqli_query($connection, $sql);
-        $adminRow = mysqli_fetch_assoc($result);
 
-    }
 
     if (isset($_GET['status'])) {
         $status = $_GET['status'];
@@ -143,7 +137,7 @@
 
    
 
-    mysqli_close($connection);
+    
 ?>
 
 <!DOCTYPE html>
