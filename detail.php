@@ -144,7 +144,7 @@ require_once "navbar.php";
     <div class="container ">
     <div class="grid-container-2 ">
     <div>
-            <a href="index.php" class="btn btn-warning">Back to home page</a>
+            <a href="home.php" class="btn btn-warning">Back to home page</a>
             <?php if ($adoption) { ?>
                 <a href="detail.php?pet_id=<?=$pet_id?>" class="btn btn-success">Take Me Home!</a>
             <?php } ?>
