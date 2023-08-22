@@ -64,9 +64,9 @@
                                 <img src='public/images/pet_images/{$rows['pimage']}' class='card-img-top' alt='...'>
                                 <p class='card-text'>Species: {$rows["species"]}</p>";
                     if ($rows3) {
-                        $layer.="<p class='card-text'><b>Fosted by:".$rows3['username']."<br>from: ".$rows3['start_date']." to: ".$rows3['end_date']."</b></p>";
+                        $layer.="<p class='card-text'><b>Fosted in progress by:".$rows3['username']."<br>from: ".$rows3['start_date']." to: ".$rows3['end_date']."</b></p>";
                     }
-                    $layer.="<p class='card-text'>Request From : {$rows['username']}<br>Request Status : <b>{$rows['status_req']}</b></p>";
+                    $layer.="<p class='card-text'>Request From : {$rows['username']}<br>Request Date : {$rows['application_date']}<br>Request Status : <b>{$rows['status_req']}</b></p>";
                     if ($rows['status_req']=='rejected') {
                         $sql2="SELECT username,id from users where id = (select user_id from adoption_applications where status='approved' and  pet_id={$rows['pet_id']} ) ";
                         // echo $sql2;
@@ -78,8 +78,7 @@
                     }
                 $layer.="<p class='card-text'>
                     Breed : {$rows['breed']}
-                    </p>
-                    <p class='card-text'>
+                    <br>
                     age : {$rows['age']}
                     </p>
                     <a href='detail_request.php?detail={$rows['pet_id']}&user_id_req={$rows['user_id']}&status={$rows['status_req']}' class='btn btn-primary'>Request Details</a>
