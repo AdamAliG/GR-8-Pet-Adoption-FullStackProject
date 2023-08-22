@@ -36,10 +36,6 @@ if ($status!='NO-Status') {
             adoption_applications.pet_id , adoption_applications.user_id ";
 }
 
-
-
-
-
 if (isset($sql)) {
 
     $result = mysqli_query($connection ,$sql);
@@ -104,7 +100,7 @@ if (isset($sql)) {
 </head>
 <body>
 <?php
-require_once "navbar.php";
+require_once "navbar_admin.php";
 ?>
     <div class="container">
     <div>

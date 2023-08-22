@@ -5,10 +5,9 @@ require_once "../db_connect.php";
 $message = "";  
 
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+
     $pet_id = $_GET['id'];
-    
     $query = "DELETE FROM pets WHERE id = $pet_id";
-    
     if($connection->query($query)) {
         $message = "Pet deleted successfully!";
     } else {
@@ -16,6 +15,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
 } else {
     $message = "Invalid request.";
+    
 }
 ?>
 

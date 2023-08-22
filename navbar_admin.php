@@ -22,32 +22,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="messages.php">Messages</a>
-                </li>
-                <?php 
-                $sql = "SELECT read_flag FROM messages where read_flag='false' and receiver_id=".$_SESSION['user'];
-
-                $result = retreive_form_database($connection ,$sql);
-
-                if ($result) {
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="messages.php">
-                        <img src="public/images/web_images/notification.png" alt="" width="30" height="30">
-                    </a>
-                </li>
-                <?php 
-                }
-                ?>
+                
             </ul>
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="public/images/user_images/<?= $adminRow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
+                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $adminRow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>

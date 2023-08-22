@@ -5,10 +5,11 @@
         header("Location: user_auth/login.php"); 
     }
     
-    if(isset($_SESSION["user"]) && !isset($_SESSION["admin"])){ 
+    if(isset($_SESSION["user"])){ 
         header("Location: home.php"); 
-        exit;
     }
+
+
 
     require_once "db_connect.php";
    
@@ -18,7 +19,7 @@
         $sql = "SELECT * FROM users WHERE id = $adminId";
         $result = mysqli_query($connection, $sql);
         $adminRow = mysqli_fetch_assoc($result);
-        
+
     }
 
 $sql = "SELECT * FROM pets WHERE 1"; 
@@ -55,7 +56,7 @@ if (isset($_GET['status'])) {
                     
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
-                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
+                        <a href='details.php?detail={$row["id"]}' class='btn btn-info'>Show Details</a>
                         <a href='pet_crud/edit_pet.php?id={$row["id"]}' class='btn btn-info'>Edit</a>
                         <a href='pet_crud/delete_pet.php?id={$row["id"]}' class='btn btn-info'>Delete</a>
                     </div>
@@ -84,12 +85,9 @@ if (isset($_GET['status'])) {
     
 </head>
 <body>
-
 <?php
-require_once "navbar.php";
+require_once "navbar_admin.php";
 ?>
-
-
 <div class="container mt-5">
     <h1 class="mt-5">Pet List</h1>
     <form action="" method="get" class="mb-3">

@@ -5,6 +5,8 @@ session_start();
 if(!isset($_SESSION["user"]) && !isset($_SESSION["admin"])){ 
     header("Location: user_auth/login.php"); 
 }
+
+
   
 require_once "db_connect.php";
 require_once "public/functions.php";
@@ -37,11 +39,12 @@ if (isset($_GET['adoption'])) {
 
     $row = mysqli_fetch_assoc($result);
 
+    if (isset($_SESSION["user"])){ 
     $userId = intval($_SESSION["user"]); 
     $usersql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
     $result = mysqli_query($connection, $usersql);
     $userrow = mysqli_fetch_assoc($result);
-
+    }
 
 
 
@@ -137,7 +140,12 @@ if (isset($_GET['adoption'])) {
 </head>
 <body>
 <?php
+if (isset($_SESSION["user"])){ 
 require_once "navbar.php";
+}
+if (isset($_SESSION["admin"])){ 
+    require_once "navbar_admin.php";
+}
 ?>
 <?= $layout ?>
 <div class="container mt-5">
@@ -159,8 +167,16 @@ require_once "navbar.php";
                     <p class="card-text"><strong>Size:</strong> <?= $row["size"] ?></p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="home.php" class="btn btn-warning">Back to Home Page</a>
-                    <?php if ($adoption) { ?>
+                    <?php
+                    if (isset($_SESSION["user"])){ ?>
+                        <a href="home.php" class="btn btn-warning">Back to Home Page</a>
+                    <?php
+                    }
+                    if (isset($_SESSION["admin"])){ ?>
+                        <a href="dashboard.php" class="btn btn-warning">Back to Home Page</a>
+                    <?php 
+                    }
+                    if ($adoption) { ?>
                         <a href="details.php?pet_id=<?=$pet_id?>" class="btn btn-success">Take Me Home!</a>
                     <?php } ?>
                 </div>
