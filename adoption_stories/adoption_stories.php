@@ -8,7 +8,7 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 
 require_once "../db_connect.php";
 require_once "../file_upload.php";
-
+require_once "../public/functions.php";
 
 $sql = "SELECT * FROM adoption_stories";
 $result = mysqli_query($connection, $sql);
@@ -23,10 +23,12 @@ if (mysqli_num_rows($result) > 0) {
                     <img src='../public/images/story_images/{$row["photo"]}' class='card-img-top' alt='...'>
                     <div class='card-body'>
                         <h5 class='card-title'>{$row["story"]}</h5>              
-                        <a href='details_adoption_story.php?id={$row["id"]}' class='btn btn-primary'>Show Story</a>
-                        <a href='edit_adoption_story.php?id={$row["id"]}' class='btn btn-warning'>Edit Story</a>
-                        <a href='delete_adoption_story.php?id={$row["id"]}' class='btn btn-danger'>Delete Story</a>
-                    </div>
+                        <a href='details_adoption_story.php?id={$row["id"]}' class='btn btn-primary'>Show Story</a>";
+                        if (isset($_SESSION["admin"])) {
+                        $cards .="<a href='edit_adoption_story.php?id={$row["id"]}' class='btn btn-warning'>Edit Story</a>
+                        <a href='delete_adoption_story.php?id={$row["id"]}' class='btn btn-danger'>Delete Story</a>";
+                        }
+                    $cards .="</div>
                 </div>
             </div>";
     }

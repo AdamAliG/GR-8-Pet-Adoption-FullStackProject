@@ -7,6 +7,7 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 }
 require_once "../db_connect.php";
 require_once "../file_upload.php";
+require_once "../public/functions.php";
 function build_calendar($month, $year)
 {
     $mysqli = new mysqli('localhost', 'root', '', 'gr 8 - pet adoption - fullstackproject');

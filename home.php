@@ -6,7 +6,7 @@ if(!isset($_SESSION["user"]) && !isset($_SESSION["admin"])){
     exit;
 }
 
-if(isset($_SESSION["admin"]) && !isset($_SESSION["user"])){ 
+if(isset($_SESSION["admin"])){ 
     header("Location: dashboard.php");
     exit;
 }
@@ -14,14 +14,7 @@ if(isset($_SESSION["admin"]) && !isset($_SESSION["user"])){
 require_once "db_connect.php";
 require_once "public/functions.php";
 
-
-if (isset($_SESSION["user"])) {
-    $userId = intval($_SESSION["user"]); 
-    $sql = "SELECT * FROM users WHERE id = $userId";
-    $result = mysqli_query($connection, $sql);
-    $userRow = mysqli_fetch_assoc($result);
-    
-}
+$userId=$_SESSION["user"];
 
 $sql = "SELECT * FROM pets WHERE 1"; 
 

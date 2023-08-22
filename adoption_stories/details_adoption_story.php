@@ -12,6 +12,7 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 }
 
 require_once "../db_connect.php";
+require_once "../public/functions.php";
 
 $id = $_GET["id"];
 
@@ -46,7 +47,7 @@ if (isset($_SESSION["admin"])){
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <p><img src="../pictures/<?= $row["photo"] ?>" class="rounded" width="400"></p>
+                        <p><img src="../public/images/story_images/<?= $row["photo"] ?>" class="rounded" width="400"></p>
                     </div>
                     <div class="col">
                         <p><?= $row["story"] ?></p>
