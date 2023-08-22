@@ -55,10 +55,10 @@ if (isset($_SESSION["user"])){
                 <img src="../public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
+                        <a class="nav-link font-weight-bold" href="../user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
+                        <a class="nav-link font-weight-bold" href="../user_auth/logout.php?logout">Logout</a>
                     </li>
                 </ul>
             
