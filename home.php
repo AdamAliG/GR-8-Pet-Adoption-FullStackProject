@@ -50,6 +50,22 @@ $cards = "";
 
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
+
+            $flag=false;
+            $show=true;
+            $sql2="select id,status from adoption_applications where status !='approved' and pet_id = {$row['id']} and user_id != {$userId} and pet_id in (select pet_id from foster_to_adopt where pet_id = {$row['id']} and status='in_progress' and user_id != {$userId} )";
+            $rows2=retreive_form_database($connection ,$sql2);
+            // if ($rows['id']==9) {
+            //     echo isset($rows2);
+            //     exit();
+            // } 
+            $sql3="select * from adoption_applications where pet_id = {$row['id']} and user_id = {$userId} order by id desc LIMIT 1 ";
+
+            $rows3=retreive_form_database($connection ,$sql3);
+
+            $sql4="select * from foster_to_adopt where pet_id = {$row['id']} and user_id = {$userId}  and status='in_progress' ";
+            $rows4=retreive_form_database($connection ,$sql4);
+
             $cards .= "<div class='col mb-4'>
                 <div class='card h-100'>
                     <div class='card-body'>
@@ -57,10 +73,36 @@ $cards = "";
                         
                         <img src='public/images/pet_images/{$row["image"]}' class='card-img-top' alt='...'>
                     
-                        <p class='card-text'>Species: {$row["species"]}</p>
-                        <p class='card-text'>Location: {$row["location"]}</p>
-                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
-                    </div>
+                        <p class='card-text'>Species: {$row["species"]}</p>";            
+                        if (($rows3) && (!$rows4)) {
+                            $flag=true;
+                            switch ($rows3['status']) {
+                                case "rejected":
+                                    $show=false;
+                                    $cards.="<p class='card-text'><span class='text-danger'>your request for {$row['name']} has rejected!</span></p>";
+                                    break;
+                                case "pending":
+                                    $cards.="<p class='card-text'><span class='text-success'>your request for {$row['name']} is in progress!</span></p>";
+                                    break;
+                                case "approved":
+                                    $show=false;
+                                    $cards.="<p class='card-text'><span class='text-primary'>you have adopted {$row['name']}!:)</span></p>";
+                                    break;
+                            }
+                        }
+                        if ($rows4) {
+                            $cards.="<p class='card-text'><span class='text-success'>in Foster-to-Adopt process by you! have a good time!:)</span></p>";
+                        }
+                        if (($rows2) && ($show)) {
+                            $cards.="<p class='card-text'><span class='text-primary'>in Foster-to-Adopt process by another applicant!wait a little!:)</span></p>";
+                        } 
+
+                        $cards.="<p class='card-text'>Location: {$row["location"]}</p>
+                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>";
+                        if (!$rows2 && !$rows4 && !$flag) {
+                            $cards.="<a href='detail.php?detail={$row['id']}&adoption=yes' class='btn btn-info'>Adopt Me!</a>";
+                        } 
+                        $cards.="</div>
                 </div>
             </div>";
         }
