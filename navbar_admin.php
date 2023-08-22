@@ -10,6 +10,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="home.php">Home</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="requests.php">Requests</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="adoption_stories/adoption_stories.php">Adoption Stories</a>
                 </li>

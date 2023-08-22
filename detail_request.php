@@ -319,7 +319,7 @@ if (!isset($_SESSION['admin'])) {
 </head>
 <body>
 <?php
-require_once "navbar.php";
+require_once "navbar_admin.php";
 ?>
     <?= $layout ?>
     <div class="container ">
