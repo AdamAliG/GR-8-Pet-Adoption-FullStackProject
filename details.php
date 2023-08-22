@@ -43,7 +43,14 @@ if (isset($_GET['adoption'])) {
     $userId = intval($_SESSION["user"]); 
     $usersql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
     $result = mysqli_query($connection, $usersql);
-    $userrow = mysqli_fetch_assoc($result);
+    $userRow = mysqli_fetch_assoc($result);
+    }
+    if (isset($_SESSION["admin"])) {
+        $adminId = intval($_SESSION["admin"]); 
+        $sql = "SELECT * FROM users WHERE id = $adminId";
+        $result = mysqli_query($connection, $sql);
+        $adminRow = mysqli_fetch_assoc($result);
+
     }
 
 

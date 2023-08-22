@@ -211,6 +211,8 @@ if (!isset($_SESSION['admin'])) {
         
         if ($new_status == 'approved') {
 
+            
+
             $sql2 ="UPDATE pets SET `status`='adopted' WHERE id =".$pet_id;
             $sql3= "UPDATE adoption_applications set status='rejected', status_date=Now() where pet_id=$pet_id and user_id != $user_id_req";
 
