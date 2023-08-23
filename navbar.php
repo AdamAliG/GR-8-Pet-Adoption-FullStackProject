@@ -52,7 +52,7 @@ if (isset($_SESSION["user"])){
             
             <ul class="navbar-nav ms-auto">
             <a class="nav-item me-3" href="#">
-                <img src="/public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
+                <img src="public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
             </a>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
