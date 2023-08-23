@@ -4,7 +4,9 @@ session_start();
 require_once "../db_connect.php";
 include "../file_upload.php";
 $showForm = true;
-
+function getRedirectUrl() {
+    return "users.php"; 
+}
 
 $currentUserId = $_SESSION["admin"] ?? null;
 
@@ -143,8 +145,9 @@ mysqli_close($connection);
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>
+                
             </form>
-
+            
         <?php else: ?>
 
             <div class="text-center" style="height: 60vh; display: flex; align-items: center; justify-content: center;">
@@ -152,7 +155,7 @@ mysqli_close($connection);
             </div>
 
         <?php endif; ?>
-
+<a class="btn btn-info" href="<?= getRedirectUrl(); ?>">Back to Home</a>
     </div>
 
     <script>

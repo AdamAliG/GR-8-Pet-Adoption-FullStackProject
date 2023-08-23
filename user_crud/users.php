@@ -53,7 +53,10 @@ if(mysqli_num_rows($result) > 0){
 </head>
 <style>
     
-
+    .card {
+    width: 500px; 
+    margin: 0 auto; 
+}
 
 .square-img {
     display: block;

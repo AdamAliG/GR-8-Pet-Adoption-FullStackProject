@@ -6,6 +6,15 @@ if (isset($_SESSION["admin"])) {
         $adminRow = mysqli_fetch_assoc($result);
 
     }
+    $hasAccessToChat = false;
+
+if (isset($_SESSION["admin"])) {
+    $hasAccessToChat = true;
+} elseif (isset($_SESSION["user"])) {
+    if (isset($userRow["is_approved"]) && $userRow["is_approved"] == 1) {
+        $hasAccessToChat = true; 
+    }
+}
 ?>
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
@@ -37,7 +46,11 @@ if (isset($_SESSION["admin"])) {
                 <li class="nav-item">
                     <a class="nav-link" href="pet_crud/add_pet.php?add_pet">Add Pet</a>
                 </li>
-
+                <?php if ($hasAccessToChat): ?>
+                    <li class="nav-item">
+                <a class="nav-link" href="messenger/users.php?id=<?= $_SESSION['id'] ?>">Chat</a>
+                </li> 
+                <?php endif; ?>
             </ul>
             
             <ul class="navbar-nav ms-auto">

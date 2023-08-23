@@ -47,14 +47,16 @@
             $row = $result->fetch_assoc();
 
             if ($row && password_verify($password, $row["password"])) {
+                $_SESSION['id'] = $row["id"]; 
+
                 $username = $row["username"];
                 if ($row["role"] == "admin") {
-                 $_SESSION["admin"] = $row["id"];
-                 $welcomeMsg = "Welcome " . $username . " (Admin)!";
-                    } else {
+                    $_SESSION["admin"] = $row["id"];
+                    $welcomeMsg = "Welcome " . $username . " (Admin)!";
+                } else {
                     $_SESSION["user"] = $row["id"];
                     $welcomeMsg = "Welcome " . $username . "!";
-                    }
+                }
             } else {
                 echo "<div class='alert alert-danger'>
                         <p>Incorrect email or password, please try again.</p>

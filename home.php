@@ -15,7 +15,15 @@ require_once "db_connect.php";
 require_once "public/functions.php";
 
 $userId=$_SESSION["user"];
+$hasAccessToChat = false;
 
+if (isset($_SESSION["admin"])) {
+    $hasAccessToChat = true;
+} elseif (isset($_SESSION["user"])) {
+    if (isset($userRow["is_approved"]) && $userRow["is_approved"] == 1) {
+        $hasAccessToChat = true; 
+    }
+}
 $sql = "SELECT * FROM pets WHERE 1"; 
 
 if (isset($_GET['species'])) {

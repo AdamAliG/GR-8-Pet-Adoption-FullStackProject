@@ -5,6 +5,14 @@ if (isset($_SESSION["user"])){
     $result = mysqli_query($connection, $usersql);
     $userRow = mysqli_fetch_assoc($result);
     }
+    $hasAccessToChat = false;
+    if (isset($_SESSION["admin"])) {
+        $hasAccessToChat = true;
+    } elseif (isset($_SESSION["user"])) {
+        if (isset($userRow["is_approved"]) && $userRow["is_approved"] == 1) {
+            $hasAccessToChat = true; 
+        }
+    }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
@@ -33,20 +41,18 @@ if (isset($_SESSION["user"])){
                 <li class="nav-item">
                     <a class="nav-link" href="messages.php">Messages</a>
                 </li>
-                <?php 
-                $sql = "SELECT read_flag FROM messages where read_flag='false' and receiver_id=".$_SESSION['user'];
-
-                $result = retreive_form_database($connection ,$sql);
-
-                if ($result) {
-                ?>
+                <?php if ($hasAccessToChat): ?>
+                    <li class="nav-item">
+                <a class="nav-link" href="messenger/users.php?id=<?= $_SESSION['id'] ?>">Chat</a>
+                </li> 
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link" href="messages.php">
                         <img src="public/images/web_images/notification.png" alt="" width="30" height="30">
                     </a>
                 </li>
                 <?php 
-                }
+                
                 ?>
             </ul>
             

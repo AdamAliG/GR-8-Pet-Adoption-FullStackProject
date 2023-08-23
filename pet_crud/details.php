@@ -81,6 +81,7 @@
     .card-text img {
         max-width: 100%;
         height: auto;
+        
     }
 
     .card-text strong {
@@ -102,6 +103,7 @@
     .btn-warning:hover {
         background-color: #ffaa00;
     }
+    
     </style>
 </head>
 
