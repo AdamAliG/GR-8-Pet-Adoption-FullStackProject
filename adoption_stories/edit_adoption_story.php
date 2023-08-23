@@ -12,6 +12,7 @@ if (!isset($_SESSION["admin"])) {
 
 require_once "../db_connect.php";
 require_once "../file_upload.php";
+require_once "../public/functions.php";
 
 
 if (isset($_GET['id'])) {
@@ -58,14 +59,14 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-<?php
-if (isset($_SESSION["user"])){ 
-require_once "../navbar_sub.php";
-}
-if (isset($_SESSION["admin"])){ 
-    require_once "../navbar_admin_sub.php";
-}
-?>
+    <?php
+    if (isset($_SESSION["user"])) {
+        require_once "../navbar_sub.php";
+    }
+    if (isset($_SESSION["admin"])) {
+        require_once "../navbar_admin_sub.php";
+    }
+    ?>
 
     <div class="container mt-5">
         <form class="form-group" method="post" enctype="multipart/form-data">

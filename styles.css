@@ -26,6 +26,7 @@ body {
 .btn-sm,
 .btn-primary,
 .btn-warning,
+.btn-danger,
 .btn-apply {
     font-size: 0.75rem;
     font-weight: bold;
@@ -85,7 +86,7 @@ body {
 }
 
 .accordion-button::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -98,7 +99,6 @@ body {
 .accordion-body {
     background-color: #ffcc66;
 }
-
 
 .btn-info:hover {
     background-color: #ff8c00;
@@ -125,4 +125,4 @@ body {
     grid-template-columns: auto auto auto;
     grid-gap: 30px;
     padding: 0px;
-  }
+}

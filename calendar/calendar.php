@@ -139,14 +139,14 @@ function build_calendar($month, $year)
 
 <body>
 
-<?php
-if (isset($_SESSION["user"])){ 
-require_once "../navbar_sub.php";
-}
-if (isset($_SESSION["admin"])){ 
-    require_once "../navbar_admin_sub.php";
-}
-?>
+    <?php
+    if (isset($_SESSION["user"])) {
+        require_once "../navbar_sub.php";
+    }
+    if (isset($_SESSION["admin"])) {
+        require_once "../navbar_admin_sub.php";
+    }
+    ?>
 
     <div class="container">
         <div class="row">

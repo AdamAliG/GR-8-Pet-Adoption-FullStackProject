@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 
 // if (isset($_SESSION["user"])) {
@@ -30,27 +29,33 @@ $row = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
     <title>Details</title>
 </head>
 
 <body>
-<?php
-if (isset($_SESSION["user"])){ 
-require_once "../navbar_sub.php";
-}
-if (isset($_SESSION["admin"])){ 
-    require_once "../navbar_admin_sub.php";
-}
-?>
+    <?php
+    if (isset($_SESSION["user"])) {
+        require_once "../navbar_sub.php";
+    }
+    if (isset($_SESSION["admin"])) {
+        require_once "../navbar_admin_sub.php";
+    }
+    ?>
     <div class="container mt-5">
-        <div class="card" style="width: 50rem;">
-            <div class="card-body">
+        <div class="card" style="width: 80rem;">
+            <div class="card-body p-5">
+                <div class="row">
+
+                </div>
                 <div class="row">
                     <div class="col">
-                        <p><img src="../public/images/story_images/<?= $row["photo"] ?>" class="rounded" width="400"></p>
+                        <p><img src="../public/images/story_images/<?= $row["photo"] ?>" class="img-fluid rounded" width="400"></p>
                     </div>
                     <div class="col">
-                        <p><?= $row["story"] ?></p>
+                        <p class="lead"><?= $row["story"] ?></p>
+                        <hr>
+                        <a href="adoption_stories.php" class="btn btn-warning">Show all stories</a>
                     </div>
                 </div>
 
