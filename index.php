@@ -12,10 +12,14 @@ if (!isset($_SESSION['user'])) {
     header( "Location: user_auth/login.php");
 } 
 
-echo $_SESSION['user'];
-
 require_once 'db_connect.php';
 require_once "public/functions.php";
+
+$userId = intval($_SESSION["user"]); 
+$sql = "SELECT * FROM users WHERE id = $userId";
+$result = mysqli_query($connection, $sql);
+$userRow = mysqli_fetch_assoc($result);
+
 
 $sql1 = "SELECT * FROM pets";
 $result = mysqli_query($connection ,$sql1);
@@ -66,7 +70,7 @@ if(mysqli_num_rows($result) > 0){
                 $layer.="<br><span class='text-success'>in Foster-to-Adopt process by you! have a good time!:)</span>";
             }
             if ($rows2) {
-                $layer.="<br><span class='text-primary'>in Foster-to-Adopt process by another applicant!(wait a little!:))</span>";
+                $layer.="<br><span class='text-primary'>in Foster-to-Adopt process by another applicant!wait a little!:)</span>";
             } 
             $layer.="<br>
             Breed : {$rows['breed']}
@@ -95,6 +99,9 @@ $layer.="</div></div>";
     <link rel="stylesheet" href="Public/components/css/main.css">
 </head>
 <body>
+<?php
+require_once "navbar.php";
+?> 
     <?=$layer ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>

@@ -1,0 +1,74 @@
+.navbar {
+    background-color: #ffffff;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.form-label {
+    font-size: 0.875rem;
+}
+
+.form-select {
+    font-size: 0.875rem;
+}
+
+.btn-sm {
+    font-size: 0.75rem;
+}
+
+.form-control,
+.input-group-sm .form-control {
+    font-size: 0.875rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+.card {
+border: 1px solid #ddd;
+border-radius: 8px;
+overflow: hidden;
+}
+
+.card-header {
+background-color: #f8f9fa;
+border-bottom: 1px solid #ddd;
+padding: 20px;
+}
+
+.card-title {
+font-size: 1.8rem;
+margin-bottom: 0;
+}
+
+.card-body {
+padding: 20px;
+}
+
+.card-text img {
+max-width: 100%;
+height: auto;
+}
+
+.card-text strong {
+font-weight: bold;
+}
+
+.card-footer {
+background-color: #f8f9fa;
+border-top: 1px solid #ddd;
+padding: 20px;
+text-align: center;
+}
+
+.btn-warning {
+background-color: #ffc107;
+border: none;
+}
+
+.btn-warning:hover {
+background-color: #ffaa00;
+}

@@ -153,9 +153,9 @@ mysqli_close($connection);
                     <input type="file" class="form-control" id="pictures" name="pictures">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-info my-5">Update</button>
             </form>
-
+            <a class="btn btn-info" href="<?= getRedirectUrl(); ?>">Back to Home</a>
         <?php else: ?>
 
             <div class="text-center" style="height: 60vh; display: flex; align-items: center; justify-content: center;">

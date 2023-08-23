@@ -10,7 +10,7 @@ to put a request to database
     // $_SESSION['user']=2;
     // $_SESSION['adm']=3;
      if (!isset($_SESSION['user'])) {
-            header( "Location: login.php" );
+            header( "Location: user_auth/login.php" );
      } else if (isset($_SESSION['user'])) {
          $user_id = $_SESSION['user'];
      } 
@@ -19,6 +19,11 @@ to put a request to database
     require_once "db_connect.php"; 
     require_once "file_Upload.php"; 
     require_once "public/functions.php";
+
+    $userId = intval($_SESSION["user"]); 
+    $sql = "SELECT * FROM users WHERE id = $userId";
+    $result = mysqli_query($connection, $sql);
+    $userRow = mysqli_fetch_assoc($result);
 
     $pet_id = 0;
     $adoption = False;
@@ -127,19 +132,18 @@ to put a request to database
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Adoption - Event Page</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"  rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"  crossorigin="anonymous">
-    <link rel="stylesheet" href="public/components/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <?php
-        include  "public/components/navbar.php"; 
-    ?>
+<?php
+require_once "navbar.php";
+?>
     <?= $layout ?>
     <div class="container ">
     <div class="grid-container-2 ">
     <div>
-            <a href="index.php" class="btn btn-warning">Back to home page</a>
+            <a href="home.php" class="btn btn-warning">Back to home page</a>
             <?php if ($adoption) { ?>
                 <a href="detail.php?pet_id=<?=$pet_id?>" class="btn btn-success">Take Me Home!</a>
             <?php } ?>

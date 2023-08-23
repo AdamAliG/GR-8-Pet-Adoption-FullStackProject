@@ -50,6 +50,22 @@ $cards = "";
 
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
+
+            $flag=false;
+            $show=true;
+            $sql2="select id,status from adoption_applications where status !='approved' and pet_id = {$row['id']} and user_id != {$userId} and pet_id in (select pet_id from foster_to_adopt where pet_id = {$row['id']} and status='in_progress' and user_id != {$userId} )";
+            $rows2=retreive_form_database($connection ,$sql2);
+            // if ($rows['id']==9) {
+            //     echo isset($rows2);
+            //     exit();
+            // } 
+            $sql3="select * from adoption_applications where pet_id = {$row['id']} and user_id = {$userId} order by id desc LIMIT 1 ";
+
+            $rows3=retreive_form_database($connection ,$sql3);
+
+            $sql4="select * from foster_to_adopt where pet_id = {$row['id']} and user_id = {$userId}  and status='in_progress' ";
+            $rows4=retreive_form_database($connection ,$sql4);
+
             $cards .= "<div class='col mb-4'>
                 <div class='card h-100'>
                     <div class='card-body'>
@@ -57,10 +73,36 @@ $cards = "";
                         
                         <img src='public/images/pet_images/{$row["image"]}' class='card-img-top' alt='...'>
                     
-                        <p class='card-text'>Species: {$row["species"]}</p>
-                        <p class='card-text'>Location: {$row["location"]}</p>
-                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
-                    </div>
+                        <p class='card-text'>Species: {$row["species"]}</p>";            
+                        if (($rows3) && (!$rows4)) {
+                            $flag=true;
+                            switch ($rows3['status']) {
+                                case "rejected":
+                                    $show=false;
+                                    $cards.="<p class='card-text'><span class='text-danger'>your request for {$row['name']} has rejected!</span></p>";
+                                    break;
+                                case "pending":
+                                    $cards.="<p class='card-text'><span class='text-success'>your request for {$row['name']} is in progress!</span></p>";
+                                    break;
+                                case "approved":
+                                    $show=false;
+                                    $cards.="<p class='card-text'><span class='text-primary'>you have adopted {$row['name']}!:)</span></p>";
+                                    break;
+                            }
+                        }
+                        if ($rows4) {
+                            $cards.="<p class='card-text'><span class='text-success'>in Foster-to-Adopt process by you! have a good time!:)</span></p>";
+                        }
+                        if (($rows2) && ($show)) {
+                            $cards.="<p class='card-text'><span class='text-primary'>in Foster-to-Adopt process by another applicant!wait a little!:)</span></p>";
+                        } 
+
+                        $cards.="<p class='card-text'>Location: {$row["location"]}</p>
+                        <a href='details.php?detail={$row["id"]}' class='btn btn-info'>Show Details</a>";
+                        if (!$rows2 && !$rows4 && !$flag) {
+                            $cards.="<a href='details.php?detail={$row['id']}&adoption=yes' class='btn btn-info'>Adopt Me!</a>";
+                        } 
+                        $cards.="</div>
                 </div>
             </div>";
         }
@@ -81,76 +123,15 @@ $cards = "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pet Adoption</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Pet Adoption</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adoption_stories/adoption_stories.php">Adoption Stories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pet of the Day</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calendar/calendar.php">Calendar for Volunteers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="messages.php">Messages</a>
-                </li>
-                <?php 
-/*
-                $sql = "SELECT read_flag FROM messages where read_flag='false' and receiver_id=".$_SESSION['user'];
-
-                $result = retreive_form_database($connection ,$sql);
-
-                if ($result) {
-*/
+<?php
+require_once "navbar.php";
 ?>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="messages.php">
-                        <img src="public/images/web_images/notification.png" alt="" width="30" height="30">
-                    </a>
-                </li> -->
-<?php 
-/*
-                }
-*/
-?>
-            </ul>
-            
-            <ul class="navbar-nav ms-auto">
-            <a class="nav-item me-3" href="#">
-                <img src="public/images/user_images/<?= $userRow["pictures"] ?>" alt="user pic" width="35" height="30">
-            </a>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $userRow["id"] ?>">Update</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
-                    </li>
-                </ul>
-            
-        </div>
-    </div>
-</nav>
-
 
 <div class="container mt-5">
     <h1 class="mt-5">Pet List</h1>
@@ -208,7 +189,8 @@ $cards = "";
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 <script>
     const searchInput = document.getElementById('searchInput');
     const cardContainer = document.querySelector('.row-cols');

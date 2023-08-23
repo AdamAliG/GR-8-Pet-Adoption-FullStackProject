@@ -36,10 +36,6 @@ if ($status!='NO-Status') {
             adoption_applications.pet_id , adoption_applications.user_id ";
 }
 
-
-
-
-
 if (isset($sql)) {
 
     $result = mysqli_query($connection ,$sql);
@@ -103,6 +99,9 @@ if (isset($sql)) {
     <link rel="stylesheet" href="Public/components/css/main.css">
 </head>
 <body>
+<?php
+require_once "navbar_admin.php";
+?>
     <div class="container">
     <div>
     <a href='index_requests.php' class='btn btn-success'>All Requests</a>

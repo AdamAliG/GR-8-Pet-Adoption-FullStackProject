@@ -5,10 +5,11 @@
         header("Location: user_auth/login.php"); 
     }
     
-    if(isset($_SESSION["user"]) && !isset($_SESSION["admin"])){ 
+    if(isset($_SESSION["user"])){ 
         header("Location: home.php"); 
-        exit;
     }
+
+
 
     require_once "db_connect.php";
    
@@ -18,7 +19,7 @@
         $sql = "SELECT * FROM users WHERE id = $adminId";
         $result = mysqli_query($connection, $sql);
         $adminRow = mysqli_fetch_assoc($result);
-        
+
     }
 
 $sql = "SELECT * FROM pets WHERE 1"; 
@@ -55,7 +56,7 @@ if (isset($_GET['status'])) {
                     
                         <p class='card-text'>Species: {$row["species"]}</p>
                         <p class='card-text'>Location: {$row["location"]}</p>
-                        <a href='pet_crud/details.php?id={$row["id"]}' class='btn btn-info'>Show Details</a>
+                        <a href='details.php?detail={$row["id"]}' class='btn btn-info'>Show Details</a>
                         <a href='pet_crud/edit_pet.php?id={$row["id"]}' class='btn btn-info'>Edit</a>
                         <a href='pet_crud/delete_pet.php?id={$row["id"]}' class='btn btn-info'>Delete</a>
                     </div>
@@ -85,56 +86,9 @@ if (isset($_GET['status'])) {
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Pet Adoption</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adoption_stories/adoption_stories.php">Adoption Stories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pet of the Day</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calendar/calendar.php">Calendar for Volunteers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pet_crud/add_pet.php?add_pet">Add Pet</a>
-                </li>
-
-            </ul>
-            
-            <ul class="navbar-nav ms-auto">
-            <a class="nav-item me-3" href="#">
-                <img src="public/images/user_images/<?= $adminRow["pictures"] ?>" alt="user pic" width="35" height="30">
-            </a>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/update.php?id=<?= $adminRow["id"] ?>">Update</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_crud/users.php?users">See Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
-                    </li>
-                </ul>
-            
-        </div>
-    </div>
-</nav>
-
-
+<?php
+require_once "navbar_admin.php";
+?>
 <div class="container mt-5">
     <h1 class="mt-5">Pet List</h1>
     <form action="" method="get" class="mb-3">

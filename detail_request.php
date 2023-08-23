@@ -33,7 +33,7 @@ if (!isset($_SESSION['admin'])) {
         $pet_name=retreive_form_database($connection ,$sqlpet);
 
         $sender=$_SESSION['admin'];
-        $msg="<a href='details.php?detail=$pet_id'>".$pet_name['name']."</a> is in Fost-to-Adopt process by you! have a great time with eachother!";
+        $msg="<a href='detail.php?detail=$pet_id'>".$pet_name['name']."</a> is in Fost-to-Adopt process by you! have a great time with eachother!";
         $msg=addslashes($msg);
 
         // echo $msg;
@@ -125,16 +125,20 @@ if (!isset($_SESSION['admin'])) {
         $user_id_req =$row['id'];
     }
 
-    $sql = "select * from foster_to_adopt where status='in_progress' and pet_id =". $pet_id . " and user_id=".$user_id_req ;
+    $sql = "select * from foster_to_adopt where status='in_progress' and pet_id =". $pet_id ;
 
     $row = retreive_form_database($connection ,$sql);
 
     if ($row) {
-        $fost=true;
+
+        if ($row['user_id'] == $user_id_req) {
+            $fost=true;
+            $layout .= "<h3 class='text-black text-center fw-bold'>in Foster-To-Adopt progress!</h3>";
+        }
         $start_date = $row['start_date'];
         $end_date = $row['end_date'];
         $description_fost =$row['description'];
-        $layout .= "<h3 class='text-black text-center fw-bold'>in Foster-To-Adopt progress!</h3>";
+        
     }
 
     if (!empty($new_status))  {
@@ -143,6 +147,19 @@ if (!isset($_SESSION['admin'])) {
         $rows0=retreive_form_database($connection,$sql0);
         $current_status = $rows0['status'];
         $status_g = $new_status;
+
+        $sender=$_SESSION['admin'];
+        $msg="Your request status for <a href='detail.php?detail=$pet_id'>$name</a> has chenged from $current_status to $new_status by shelter !";
+        $msg=addslashes($msg);
+
+        $sqlmsg = "INSERT INTO `messages` (`sender_id`, `receiver_id`, `content`, `timestamp`) VALUES ($sender,$user_id_req,'$msg', now())";
+
+        // echo $sqlmsg;
+        // exit();
+
+        mysqli_query($connection, $sqlmsg);
+
+
 
         $sql1 = "UPDATE adoption_applications set status='$new_status', status_date=Now() where pet_id=$pet_id and user_id=$user_id_req"; 
         
@@ -301,9 +318,9 @@ if (!isset($_SESSION['admin'])) {
     <link rel="stylesheet" href="public/components/css/main.css">
 </head>
 <body>
-    <?php
-        include  "public/components/navbar.php"; 
-    ?>
+<?php
+require_once "navbar.php";
+?>
     <?= $layout ?>
     <div class="container ">
     
@@ -372,8 +389,9 @@ if (!isset($_SESSION['admin'])) {
                 <label for="breed" class="form-label">Registration Date: </label><br><?=$reg_date ?>
             </div>
 
+            
+            <?php if (!$row)  { ?>
             <div class="border border-primary p-2">
-            <?php if (!$fost)  { ?>
             <h3 class="text-danger">Foster-to-Adopt Form</h3>
             <form method="post">
                 Pet : <?=$name ?><input type="hidden" name="pet_id" value=<?=$pet_id ?>><br>
@@ -384,7 +402,9 @@ if (!isset($_SESSION['admin'])) {
                 <br><br>
                 <button type="submit" name="fost" value="fost" class="btn btn-large btn-warning">Foster for <?=$username ?></button>
             </form>
-            <?php } else { ?>
+            </div>
+            <?php } else if (($row) && ($fost)) { ?>
+            <div class="border border-primary p-2">
             <h3 class="text-danger">Foster-to-Adopt In Progress</h3>
             <form method="post">
                 Pet : <?=$name ?><input type="hidden" name="pet_id" value=<?=$pet_id ?>><br>
@@ -394,8 +414,9 @@ if (!isset($_SESSION['admin'])) {
                 Description : <?=$description_fost ?>
                 <br><br>
             </form>
-            <?php } ?>
             </div>
+            <?php } ?>
+            
     </div>
     </div>
 

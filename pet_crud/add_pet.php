@@ -10,7 +10,15 @@ require_once "../db_connect.php";
 require_once "../file_upload.php";
 
 $message = "";  
-
+function getRedirectUrl() {
+    if (isset($_SESSION['admin'])) {
+        return "../dashboard.php";
+    } elseif (isset($_SESSION['user'])) {
+        return "../home.php";
+    } else {
+        return "login.php";
+    }
+}
 if(isset($_POST['submit'])){
     $name = $_POST['name'];
     $species = $_POST['species'];
@@ -111,8 +119,9 @@ if(isset($_POST['submit'])){
                         <option value="big">Big</option>
                     </select>
                     <br>
-            <input type="submit" name="submit" value="Add Pet">
+            <input type="submit" class="btn btn-info" name="submit" value="Add Pet">
         </form>
+        <a class="btn btn-info" href="<?= getRedirectUrl(); ?>">Back to Home</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script>

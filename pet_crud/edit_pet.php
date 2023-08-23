@@ -4,7 +4,15 @@ require_once "../file_upload.php";
 
 $message = "";
 
-
+function getRedirectUrl() {
+    if (isset($_SESSION['admin'])) {
+        return "../dashboard.php";
+    } elseif (isset($_SESSION['user'])) {
+        return "../home.php";
+    } else {
+        return "../user_auth/login.php";
+    }
+}
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 
@@ -124,8 +132,9 @@ if (isset($_GET['id'])) {
     <label for="size" class="form-label">size:</label>
     <input type="text" name="size" class="form-control custom-input-width" value="<?= $pet['size'] ?>">
 
-    <input type="submit" class="btn btn-info mt-5" name="update" value="Update">
+    <input type="submit" class="btn btn-info my-5" name="update" value="Update">
 </form>  
+<a class="btn btn-info" href="<?= getRedirectUrl(); ?>">Back to Home</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
