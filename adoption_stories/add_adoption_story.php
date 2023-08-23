@@ -4,10 +4,12 @@ session_start();
 
 require_once "../db_connect.php";
 require_once "../file_upload.php";
+require_once "../public/functions.php";
 
-if (!isset($_SESSION["user"]) && !isset($_SESSION["adm"])) {
+$message = "";
+
+if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
     header("Location: ../user_auth/login.php");
-    exit;
 }
 
 // if (isset($_SESSION["user"]) || isset($_SESSION["admin"])) {
@@ -20,15 +22,15 @@ if (isset($_POST["submit"])) {
     $story = $_POST["story"];
     $photo = fileUpload($_FILES["photo"], 'story');
 
-    $sql = "INSERT INTO adoption_stories (story,photo) VALUES ('$story','$photo[0]')";
+    $query = "INSERT INTO adoption_stories (story,photo) VALUES ('$story','$photo[0]')";
 
-    if (mysqli_query($connection, $sql)) {
-        echo "<div class='alert alert-success' role='alert'>
+    if ($connection->query($query)) {
+        $message = "<div class='alert alert-success' role='alert'>
                     New story has been added, {$photo[1]}
                     </div>";
         header("refresh: 3; url = adoption_stories.php");
     } else {
-        echo "<div class='alert alert-danger' role='alert'>
+        $message = "<div class='alert alert-danger' role='alert'>
                     error found, {$photo[1]}
                     </div>";
     }

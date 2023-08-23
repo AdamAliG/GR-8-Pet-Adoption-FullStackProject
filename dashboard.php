@@ -66,10 +66,6 @@ if (isset($_GET['status'])) {
     } else {
         $cards = "<p>No results found</p>";
     }
-
-   
-
-    mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>

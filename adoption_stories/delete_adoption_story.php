@@ -1,9 +1,9 @@
 <?php
-require_once "../db_connect.php";
 
-if (!isset($_SESSION["user"])) {
-    header("Location: ../user_auth/login.php");
-}
+session_start();
+
+require_once "../db_connect.php";
+require_once "../public/functions.php";
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];

@@ -26,6 +26,7 @@ body {
 .btn-sm,
 .btn-primary,
 .btn-warning,
+.btn-danger,
 .btn-apply {
     font-size: 0.75rem;
     font-weight: bold;
@@ -85,7 +86,7 @@ body {
 }
 
 .accordion-button::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -98,7 +99,6 @@ body {
 .accordion-body {
     background-color: #ffcc66;
 }
-
 
 .btn-info:hover {
     background-color: #ff8c00;
@@ -118,4 +118,11 @@ body {
     background-color: #ffcc66;
     border-color: #ffcc66;
     box-shadow: 0 0 0 2px rgba(255, 204, 102, 0.3);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+    padding: 0px;
 }

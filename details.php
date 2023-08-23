@@ -43,7 +43,14 @@ if (isset($_GET['adoption'])) {
     $userId = intval($_SESSION["user"]); 
     $usersql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
     $result = mysqli_query($connection, $usersql);
-    $userrow = mysqli_fetch_assoc($result);
+    $userRow = mysqli_fetch_assoc($result);
+    }
+    if (isset($_SESSION["admin"])) {
+        $adminId = intval($_SESSION["admin"]); 
+        $sql = "SELECT * FROM users WHERE id = $adminId";
+        $result = mysqli_query($connection, $sql);
+        $adminRow = mysqli_fetch_assoc($result);
+
     }
 
 
@@ -156,7 +163,7 @@ if (isset($_SESSION["admin"])){
                     <h1 class="text-center"><?= $row["name"] ?>'s Details</h1>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><img src="../public/images/pet_images/<?= $row["image"] ?>" width="400"></p>
+                    <p class="card-text"><img src="public/images/pet_images/<?= $row["image"] ?>" width="400"></p>
                     <p class="card-text"><strong>Species:</strong> <?= $row["species"] ?></p>
                     <p class="card-text"><strong>Description:</strong> <?= $row["description"] ?></p>
                     <p class="card-text"><strong>Location:</strong> <?= $row["location"] ?></p>

@@ -1,5 +1,14 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
+    header("Location: ../user_auth/login.php");
+}
+
+require_once "../db_connect.php";
+require_once "../file_upload.php";
+
 header("Access-Control-Allow-Origin: http://localhost");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

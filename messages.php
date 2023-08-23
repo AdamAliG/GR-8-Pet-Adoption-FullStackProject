@@ -15,10 +15,7 @@ if (!isset($_SESSION['user'])) {
 require_once 'db_connect.php';
 require_once "public/functions.php";
 
-$userId = intval($_SESSION["user"]); 
-$sql = "SELECT * FROM users WHERE id = $userId";
-$result = mysqli_query($connection, $sql);
-$userRow = mysqli_fetch_assoc($result);
+
 
 if (isset($_GET['id']) && isset($_GET['msg'])) {
     if ($_GET['msg']=='read') {

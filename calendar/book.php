@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+
+require_once "../db_connect.php";
+require_once "../file_upload.php";
+require_once "../public/functions.php";
+
 $mysqli = new mysqli('localhost', 'root', '', 'gr 8 - pet adoption - fullstackproject');
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
@@ -81,21 +88,14 @@ function timeslots($duration, $cleanup, $start, $end)
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../pictures/<?= $row["picture"] ?>" alt="user pic" width="30" height="24">
-            </a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="calendar.php">Calendar</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <?php
+    if (isset($_SESSION["user"])) {
+        require_once "../navbar_sub.php";
+    }
+    if (isset($_SESSION["admin"])) {
+        require_once "../navbar_admin_sub.php";
+    }
+    ?>
 
     <div class="container">
         <h1 class="text-center">Book for date: <?php echo date('m/d/Y', strtotime($date)); ?></h1>
