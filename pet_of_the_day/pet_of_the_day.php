@@ -17,15 +17,17 @@ $layout = "";
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $cards .=
-            "<div>
-                <div class='card' style='width: 22rem;'>
+            "<div class='d-flex justify-content-center'>
+                <div class='card' style='width: 26rem;'>
                     <img src='../public/images/pet_images/{$row["image"]}' class='card-img-top img-fluid' alt='...'>
                     <div class='card-body'>
                         <h5 class='card-title'>{$row["name"]}</h5>
-                        <p class='card-text'><strong>Species:</strong>{$row["species"]}</p>
+                        <hr>
+                        <p class='card-text'><strong>Species: </strong>{$row["species"]}</p>
+                        <p class='card-text'><strong>Location: </strong>{$row["location"]}</p>
+                        <p class='card-text'><strong>Adoption Status: </strong>{$row["status"]}</p>
                         <div class='row'>             
-                        </div>
-                        <hr>";
+                        </div>";
 
         $cards .= "</div>
                 </div>

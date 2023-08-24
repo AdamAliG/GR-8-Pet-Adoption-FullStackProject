@@ -97,7 +97,7 @@ function timeslots($duration, $cleanup, $start, $end)
     }
     ?>
 
-    <div class="container">
+    <div class="container mt-5">
         <h1 class="text-center">Book for date: <?php echo date('m/d/Y', strtotime($date)); ?></h1>
         <hr>
         <div class="row">

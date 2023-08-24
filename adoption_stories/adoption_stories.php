@@ -18,7 +18,7 @@ $layout = "";
 $addStory = "";
 
 if (isset($_SESSION["admin"])) {
-    $addStory .= "<a href='add_adoption_story.php' class='btn btn-primary'>Add new Story</a>";
+    $addStory .= "<a href='add_adoption_story.php' class='btn btn-warning btn-lg mt-5'>Add new Story</a>";
 }
 
 if (mysqli_num_rows($result) > 0) {
