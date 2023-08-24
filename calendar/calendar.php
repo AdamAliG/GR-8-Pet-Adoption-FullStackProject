@@ -149,6 +149,7 @@ function build_calendar($month, $year)
     ?>
 
     <div class="container">
+        <br>
         <div class="row">
             <div class="col-md-12">
                 <?php

@@ -71,4 +71,5 @@ if (isset($_SESSION["admin"])) {
         </div>
     </div>
 </nav>
+<br>
 

@@ -135,6 +135,7 @@ require_once "navbar.php";
 ?>
 
 <div class="container mt-5">
+
     <h1 class="mt-5">Pet List</h1>
     <form action="" method="get" class="mb-3">
         <div class="accordion accordion-flush" id="filterAccordion">
