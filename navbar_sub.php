@@ -6,7 +6,7 @@ if (isset($_SESSION["user"])){
     $userRow = mysqli_fetch_assoc($result);
     }
 ?>
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
     <image class="navbar-brand" src="../public/images/web_images/navbar_logo.png" width="39" >
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
