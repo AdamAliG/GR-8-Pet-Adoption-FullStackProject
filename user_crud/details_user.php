@@ -145,7 +145,7 @@ if (isset($_GET["id"])) {
                     <a class="nav-link" href="adoption_stories/adoption_stories.php">Adoption Stories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pet_of_the_day/pet_of_the_day.php">Pet of the Day</a>
+                    <a class="nav-link" href="../pet_of_the_day/pet_of_the_day.php">Pet of the Day</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="calendar/calendar.php">Calendar for Volunteers</a>

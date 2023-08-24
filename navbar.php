@@ -33,7 +33,7 @@ if (isset($_SESSION["user"])){
                     <a class="nav-link" href="pet_of_the_day/pet_of_the_day.php">Pet of the Day</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/calendar/calendar.php">Calendar for Volunteers</a>
+                    <a class="nav-link" href="calendar/calendar.php">Calendar for Volunteers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="matchmaker/matchmaker.html">Matchmaker</a>
@@ -41,11 +41,11 @@ if (isset($_SESSION["user"])){
                 <li class="nav-item">
                     <a class="nav-link" href="messages.php">Messages</a>
                 </li>
-                <?php if ($hasAccessToChat): ?>
+                
                     <li class="nav-item">
                 <a class="nav-link" href="messenger/users.php?id=<?= $_SESSION['id'] ?>">Chat</a>
                 </li> 
-                <?php endif; ?>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="messages.php">
                         <img src="public/images/web_images/notification.png" alt="" width="30" height="30">

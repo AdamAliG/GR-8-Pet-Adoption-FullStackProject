@@ -94,7 +94,11 @@ if(mysqli_num_rows($result) > 0){
                 <li class="nav-item">
                     <a class="nav-link" href="../pet_crud/add_pet.php?add_pet">Add Pet</a>
                 </li>
-
+               
+                    <li class="nav-item">
+                <a class="nav-link" href="../messenger/users.php?id=<?= $_SESSION['id'] ?>">Chat</a>
+                </li> 
+                
             </ul>
             
             <ul class="navbar-nav ms-auto">
@@ -106,7 +110,7 @@ if(mysqli_num_rows($result) > 0){
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="user_auth/logout.php?logout">Logout</a>
+                        <a class="nav-link font-weight-bold" href="../user_auth/logout.php?logout">Logout</a>
                     </li>
                 </ul>
             
