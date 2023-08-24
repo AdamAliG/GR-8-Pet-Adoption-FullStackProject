@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    require_once "../file_upload.php";
     require_once "../db_connect.php";
     if(isset($_SESSION['id'])) {
       $outgoing_id = $_SESSION['id'];
