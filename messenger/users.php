@@ -2,6 +2,7 @@
 session_start();
 require_once "../db_connect.php";
 require_once "../public/functions.php";
+require_once "../public/functions.php";
 
 if(isset($_SESSION['id'])) {
     $outgoing_id = $_SESSION['id'];
