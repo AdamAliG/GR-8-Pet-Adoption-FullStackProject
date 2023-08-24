@@ -39,6 +39,7 @@ $row = mysqli_num_rows($result) > 0 ? mysqli_fetch_assoc($result) : null;
     
 </head>
 <body>
+    
 <?php if ($row): ?>
     <img src="../public/images/user_images/<?php echo $row['pictures']; ?>" alt="">
     <div class="details">
