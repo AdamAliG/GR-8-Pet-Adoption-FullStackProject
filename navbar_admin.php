@@ -26,7 +26,7 @@ if (isset($_SESSION["admin"])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="../dashboard.php?dashboard">Home</a>
+                    <a class="nav-link" href="dashboard.php?dashboard">Home</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="requests.php">Requests</a>

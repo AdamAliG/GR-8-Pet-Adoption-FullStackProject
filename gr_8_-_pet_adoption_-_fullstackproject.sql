@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 23. Aug 2023 um 10:36
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.0.28
+-- Generation Time: Aug 24, 2023 at 11:48 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,15 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `gr 8 - pet adoption - fullstackproject`
+-- Database: `gr 8 - pet adoption - fullstackproject`
 --
-CREATE DATABASE IF NOT EXISTS `gr 8 - pet adoption - fullstackproject` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gr 8 - pet adoption - fullstackproject`;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `adoption_applications`
+-- Table structure for table `adoption_applications`
 --
 
 CREATE TABLE `adoption_applications` (
@@ -40,7 +38,7 @@ CREATE TABLE `adoption_applications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `adoption_applications`
+-- Dumping data for table `adoption_applications`
 --
 
 INSERT INTO `adoption_applications` (`id`, `pet_id`, `user_id`, `details`, `application_date`, `status`, `status_date`) VALUES
@@ -50,7 +48,7 @@ INSERT INTO `adoption_applications` (`id`, `pet_id`, `user_id`, `details`, `appl
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `adoption_stories`
+-- Table structure for table `adoption_stories`
 --
 
 CREATE TABLE `adoption_stories` (
@@ -62,8 +60,9 @@ CREATE TABLE `adoption_stories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `adoption_stories`
+-- Dumping data for table `adoption_stories`
 --
+
 INSERT INTO `adoption_stories` (`id`, `user_id`, `story`, `photo`, `timestamp`) VALUES
 (4, NULL, 'In a cozy pet store, a timid guinea pig named Coco awaited a loving home. Emma, a kind-hearted girl, visited one day and their eyes met. A bond formed instantly. Through gentle care and shared veggies, Cocos world transformed. Emmas family grew by a furry bundle, filling their lives with joyous squeaks.', '64e5e7d22b93f.png', '2023-08-23 13:04:50'),
 (5, NULL, 'Amidst rolling hills, a charming Highland cow named Hamish roamed with a wistful gaze. Lily, a nature enthusiast, felt an instant connection. She adopted Hamish, turning her backyard into his haven. Their days were filled with serene moments, and Hamishs presence brought countryside magic to Lilys life.', '64e5e8452a520.png', '2023-08-23 13:06:45'),
@@ -75,12 +74,10 @@ INSERT INTO `adoption_stories` (`id`, `user_id`, `story`, `photo`, `timestamp`) 
 (12, NULL, 'In a tranquil forest, a drowsy fox named Finn found solace under a moonlit sky. Ethan, a patient wanderer, stumbled upon him. Drawn to Finns peaceful aura, Ethan offered a haven. Together, they embraced quiet nights, forming an unbreakable bond that turned the forests serenity into their shared haven.', '64e5ec16b5e07.png', '2023-08-23 13:23:02'),
 (13, NULL, 'In a tranquil farm, a timid yellow chick named Sunny sought companionship. The Johnson family arrived, and Lily, their daughter, instantly connected with Sunny. Patiently, they nurtured trust, sharing seeds and secrets. With each passing day, Sunnys feathers brightened, and Lily found a forever friend in their quiet moments.', '64e5ee4297505.png', '2023-08-23 13:30:32');
 
-
-
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `bookings`
+-- Table structure for table `bookings`
 --
 
 CREATE TABLE `bookings` (
@@ -94,7 +91,7 @@ CREATE TABLE `bookings` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `foster_to_adopt`
+-- Table structure for table `foster_to_adopt`
 --
 
 CREATE TABLE `foster_to_adopt` (
@@ -108,7 +105,7 @@ CREATE TABLE `foster_to_adopt` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `foster_to_adopt`
+-- Dumping data for table `foster_to_adopt`
 --
 
 INSERT INTO `foster_to_adopt` (`id`, `user_id`, `pet_id`, `start_date`, `end_date`, `status`, `description`) VALUES
@@ -118,7 +115,7 @@ INSERT INTO `foster_to_adopt` (`id`, `user_id`, `pet_id`, `start_date`, `end_dat
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `messages`
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
@@ -131,7 +128,7 @@ CREATE TABLE `messages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `messages`
+-- Dumping data for table `messages`
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `content`, `read_flag`, `timestamp`) VALUES
@@ -144,7 +141,7 @@ INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `content`, `read_flag`
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `pets`
+-- Table structure for table `pets`
 --
 
 CREATE TABLE `pets` (
@@ -162,17 +159,19 @@ CREATE TABLE `pets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `pets`
+-- Dumping data for table `pets`
 --
 
 INSERT INTO `pets` (`id`, `name`, `species`, `description`, `location`, `added_by`, `breed`, `status`, `age`, `image`, `size`) VALUES
-(8, 'Aki', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Austria -Vienna', 9, 'Akita', 'not adopted', 7, 'avatar.jpg', 'big'),
-(9, 'Cesar', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Graz - Austria', 9, 'Shepherd', 'not adopted', 4, 'avatar.jpg', 'medium');
+(8, 'Aki', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Austria -Vienna', 9, 'Akita', 'not adopted', 7, '64de54c50c9e4.jpg', 'big'),
+(9, 'Cesar', 'dog', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 'Graz - Austria', 9, 'Shepherd', 'not adopted', 4, 'ggmix-dog-1667376626567_900x.jpg', 'medium'),
+(12, 'Gala', 'cat', 'Desc v', 'Germany', 9, 'mix', 'not adopted', 4, '64e7261ca0354.jpg', 'small'),
+(13, 'Kitty', 'cat', 'Desc', 'Vienna', 9, 'Scotish', 'not adopted', 3, '64e72694df8e8.png', 'small');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `pet_matchmaker`
+-- Table structure for table `pet_matchmaker`
 --
 
 CREATE TABLE `pet_matchmaker` (
@@ -185,7 +184,7 @@ CREATE TABLE `pet_matchmaker` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `resource_library`
+-- Table structure for table `resource_library`
 --
 
 CREATE TABLE `resource_library` (
@@ -199,7 +198,7 @@ CREATE TABLE `resource_library` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -215,7 +214,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `registration_date`, `pictures`, `role`, `is_approved`, `user_type`) VALUES
@@ -227,11 +226,11 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `registration_date`,
 (17, 'User2', '$2y$10$699D.0w8eQJYa643QUrXguetzOYx7.tKTxnyOQ6rwvFfXYUOvVsVu', 'email@email2.com', '2023-08-23', '64e545206d9e2.png', 'user', 1, 'shelter');
 
 --
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `adoption_applications`
+-- Indexes for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
   ADD PRIMARY KEY (`id`),
@@ -239,20 +238,20 @@ ALTER TABLE `adoption_applications`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indizes für die Tabelle `adoption_stories`
+-- Indexes for table `adoption_stories`
 --
 ALTER TABLE `adoption_stories`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indizes für die Tabelle `bookings`
+-- Indexes for table `bookings`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `foster_to_adopt`
+-- Indexes for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
   ADD PRIMARY KEY (`id`),
@@ -260,7 +259,7 @@ ALTER TABLE `foster_to_adopt`
   ADD KEY `pet_id` (`pet_id`);
 
 --
--- Indizes für die Tabelle `messages`
+-- Indexes for table `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
@@ -268,14 +267,14 @@ ALTER TABLE `messages`
   ADD KEY `receiver_id` (`receiver_id`);
 
 --
--- Indizes für die Tabelle `pets`
+-- Indexes for table `pets`
 --
 ALTER TABLE `pets`
   ADD PRIMARY KEY (`id`),
   ADD KEY `added_by` (`added_by`);
 
 --
--- Indizes für die Tabelle `pet_matchmaker`
+-- Indexes for table `pet_matchmaker`
 --
 ALTER TABLE `pet_matchmaker`
   ADD PRIMARY KEY (`id`),
@@ -283,123 +282,123 @@ ALTER TABLE `pet_matchmaker`
   ADD KEY `matched_pet_id` (`matched_pet_id`);
 
 --
--- Indizes für die Tabelle `resource_library`
+-- Indexes for table `resource_library`
 --
 ALTER TABLE `resource_library`
   ADD PRIMARY KEY (`id`),
   ADD KEY `added_by` (`added_by`);
 
 --
--- Indizes für die Tabelle `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `adoption_applications`
+-- AUTO_INCREMENT for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT für Tabelle `adoption_stories`
+-- AUTO_INCREMENT for table `adoption_stories`
 --
 ALTER TABLE `adoption_stories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT für Tabelle `bookings`
+-- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT für Tabelle `foster_to_adopt`
+-- AUTO_INCREMENT for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT für Tabelle `messages`
+-- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT für Tabelle `pets`
+-- AUTO_INCREMENT for table `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT für Tabelle `pet_matchmaker`
+-- AUTO_INCREMENT for table `pet_matchmaker`
 --
 ALTER TABLE `pet_matchmaker`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `resource_library`
+-- AUTO_INCREMENT for table `resource_library`
 --
 ALTER TABLE `resource_library`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Constraints der exportierten Tabellen
+-- Constraints for dumped tables
 --
 
 --
--- Constraints der Tabelle `adoption_applications`
+-- Constraints for table `adoption_applications`
 --
 ALTER TABLE `adoption_applications`
   ADD CONSTRAINT `adoption_applications_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `adoption_applications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `adoption_stories`
+-- Constraints for table `adoption_stories`
 --
 ALTER TABLE `adoption_stories`
   ADD CONSTRAINT `adoption_stories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `foster_to_adopt`
+-- Constraints for table `foster_to_adopt`
 --
 ALTER TABLE `foster_to_adopt`
   ADD CONSTRAINT `foster_to_adopt_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `foster_to_adopt_ibfk_2` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`);
 
 --
--- Constraints der Tabelle `messages`
+-- Constraints for table `messages`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `pets`
+-- Constraints for table `pets`
 --
 ALTER TABLE `pets`
   ADD CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`);
 
 --
--- Constraints der Tabelle `pet_matchmaker`
+-- Constraints for table `pet_matchmaker`
 --
 ALTER TABLE `pet_matchmaker`
   ADD CONSTRAINT `pet_matchmaker_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `pet_matchmaker_ibfk_2` FOREIGN KEY (`matched_pet_id`) REFERENCES `pets` (`id`);
 
 --
--- Constraints der Tabelle `resource_library`
+-- Constraints for table `resource_library`
 --
 ALTER TABLE `resource_library`
   ADD CONSTRAINT `resource_library_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`);
